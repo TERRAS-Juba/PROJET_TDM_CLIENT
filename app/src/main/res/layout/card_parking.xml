@@ -67,7 +67,7 @@
                     android:id="@+id/nomParking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:fontFamily="sans-serif-black"
                     android:text="TextView" />
 
@@ -75,7 +75,7 @@
                     android:id="@+id/positionParking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:text="TextView" />
 
                 <LinearLayout
@@ -87,7 +87,7 @@
                         android:id="@+id/distanceParking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:drawableStart="@drawable/ic_baseline_directions_car_24"
                         android:drawableTint="#2196F3"
@@ -98,7 +98,7 @@
                         android:id="@+id/dureeParking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
+                        android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:text="TextView" />
                 </LinearLayout>
