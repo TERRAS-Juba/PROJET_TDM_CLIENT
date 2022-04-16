@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">Application de parkings</string>
+    <string-array name="noms">
+        <item>Parking jardin dessai</item>
+        <item>Parking jardin dessai</item>
+        <item>Parking jardin dessai</item>
+        <item>Parking jardin dessai</item>
+        <item>Parking jardin dessai</item>
+    </string-array>
+    <string-array name="positions">
+        <item>Alger</item>
+        <item>Alger</item>
+        <item>Alger</item>
+        <item>Alger</item>
+        <item>Alger</item>
+    </string-array>
+    <string-array name="status">
+        <item>Fermé</item>
+        <item>Ouvert</item>
+        <item>Ouvert</item>
+        <item>Fermé</item>
+        <item>Ouvert</item>
+    </string-array>
+    <string-array name="capacites">
+        <item>60</item>
+        <item>45</item>
+        <item>100</item>
+        <item>20</item>
+        <item>11</item>
+    </string-array>
+    <string-array name="distances">
+        <item>2,3</item>
+        <item>40</item>
+        <item>11</item>
+        <item>9</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="durees">
+        <item>100</item>
+        <item>120</item>
+        <item>30</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+    <string-array name="longitudes">
+        <item>3.9565529</item>
+        <item>3.9565529</item>
+        <item>3.9565529</item>
+        <item>3.9565529</item>
+        <item>3.9565529</item>
+    </string-array>
+    <string-array name="latitudes">
+        <item>36.7772931</item>
+        <item>36.7772931</item>
+        <item>36.7772931</item>
+        <item>36.7772931</item>
+        <item>36.7772931</item>
+    </string-array>
+    <string-array name="tarifs">
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+        <item>10</item>
+    </string-array>
+    <string-array name="horaires">
+        <item>Dimanche</item>
+        <item>Lundi</item>
+        <item>Mardi</item>
+        <item>Mercredi</item>
+        <item>Jeudi</item>
+    </string-array>
+    <string-array name="heures_ouverture">
+        <item>07:00</item>
+        <item>07:30</item>
+        <item>08:00</item>
+        <item>08:30</item>
+        <item>07:00</item>
+    </string-array>
+    <string-array name="heures_fermeture">
+        <item>18:00</item>
+        <item>19:30</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
