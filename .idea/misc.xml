@@ -3,13 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/circular_button.xml" value="0.2595" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/custom_card.xml" value="0.184" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/ic_alert_home.xml" value="0.2595" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/ic_balance_new.xml" value="0.2595" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/ic_baseline_directions_car_24.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/ic_flag_new.xml" value="0.243" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/ic_home_drawer.xml" value="0.2595" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1785" />
-        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/activity_main.xml" value="0.11956521739130435" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/ic_rec_new.xml" value="0.2595" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable-v24/ic_sells_menu.xml" value="0.2595" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable/btn_top.xml" value="0.2595" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2595" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/activity_main2.xml" value="0.25815217391304346" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/card_parking.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_connexion.xml" value="0.2427536231884058" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_details_parking.xml" value="0.15670289855072464" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_home.xml" value="0.11956521739130435" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_login.xml" value="0.2427536231884058" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_mes_reservation.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_test.xml" value="0.2427536231884058" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/menu/bottom_menu.xml" value="0.26875" />
       </map>
     </option>
   </component>

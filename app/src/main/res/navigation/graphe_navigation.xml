@@ -13,10 +13,40 @@
         <action
             android:id="@+id/action_homeFragment_to_detailsParkingFragment"
             app:destination="@id/detailsParkingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mesReservationFragment"
+            app:destination="@id/mesReservationFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/detailsParkingFragment"
         android:name="com.example.tp3.DetailsParkingFragment"
         android:label="fragment_details_parking"
         tools:layout="@layout/fragment_details_parking" />
+    <fragment
+        android:id="@+id/mesReservationFragment"
+        android:name="com.example.tp3.MesReservation"
+        android:label="fragment_mes_reservation"
+        tools:layout="@layout/fragment_mes_reservation" >
+        <action
+            android:id="@+id/action_mesReservationFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.tp3.login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_mesReservationFragment2"
+            app:destination="@id/mesReservationFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Application de parkings</string>
+    <string name="app_name">AutoReserv</string>
     <string-array name="noms">
         <item>Parking jardin dessai</item>
         <item>Parking jardin dessai</item>
