@@ -21,11 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         getSupportActionBar()?.hide();
-        var pref2 =getSharedPreferences("db_privee",Context.MODE_PRIVATE)?.edit()
-        pref2?.putBoolean("connected",false)
-        pref2?.putString("email","email false")
-        pref2?.putString("password","password false")
-        pref2?.apply ()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root

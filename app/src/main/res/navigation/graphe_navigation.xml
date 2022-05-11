@@ -29,7 +29,7 @@
         tools:layout="@layout/fragment_details_parking" />
     <fragment
         android:id="@+id/mesReservationFragment"
-        android:name="com.example.tp3.MesReservation"
+        android:name="com.example.tp3.MesReservationFragment"
         android:label="fragment_mes_reservation"
         tools:layout="@layout/fragment_mes_reservation" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.tp3.login"
+        android:name="com.example.tp3.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action

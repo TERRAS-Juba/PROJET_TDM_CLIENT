@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_login.*
 
-class login : Fragment() {
+class LoginFragment : Fragment() {
 
 
     override fun onCreateView(
