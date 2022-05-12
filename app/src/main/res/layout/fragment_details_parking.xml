@@ -8,7 +8,7 @@
     tools:context=".DetailsParkingFragment">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/imageParkingDetails"
         android:layout_width="wrap_content"
         android:layout_height="259dp"
         android:layout_marginTop="4dp"
@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image">
+        app:layout_constraintTop_toBottomOf="@+id/imageParkingDetails">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="149dp"
+                android:layout_height="181dp"
                 android:layout_marginTop="4dp"
                 android:background="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
@@ -48,86 +48,96 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/nom"
+                    android:id="@+id/nomParkingDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="39dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="36dp"
+                    android:fontFamily="@font/lato"
                     android:text="TextView"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/position"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.055"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/position"
+                    android:id="@+id/communeParkingDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/lato"
                     android:text="TextView"
-                    app:layout_constraintBottom_toTopOf="@+id/statut"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.045"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nom" />
+                    app:layout_constraintTop_toBottomOf="@+id/nomParkingDetails" />
 
                 <TextView
-                    android:id="@+id/statut"
+                    android:id="@+id/etatParkingDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center"
                     android:text="TextView"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/capacite"
+                    app:layout_constraintBottom_toBottomOf="@+id/remplissageParkingDetails"
+                    app:layout_constraintEnd_toStartOf="@+id/remplissageParkingDetails"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/position" />
+                    app:layout_constraintTop_toTopOf="@+id/remplissageParkingDetails"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
-                    android:id="@+id/capacite"
+                    android:id="@+id/remplissageParkingDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center"
                     android:text="TextView"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/distance"
+                    app:layout_constraintBottom_toBottomOf="@+id/distanceParkingDetails"
+                    app:layout_constraintEnd_toStartOf="@+id/distanceParkingDetails"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/statut" />
+                    app:layout_constraintStart_toEndOf="@+id/etatParkingDetails"
+                    app:layout_constraintTop_toTopOf="@+id/distanceParkingDetails" />
 
                 <TextView
-                    android:id="@+id/distance"
+                    android:id="@+id/distanceParkingDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
                     android:drawableStart="@drawable/ic_baseline_directions_car_24"
+                    android:drawableTint="#4287F5"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center"
                     android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/duree"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/dureeParkingDetails"
+                    app:layout_constraintEnd_toStartOf="@+id/dureeParkingDetails"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/capacite" />
+                    app:layout_constraintStart_toEndOf="@+id/remplissageParkingDetails"
+                    app:layout_constraintTop_toTopOf="@+id/dureeParkingDetails" />
 
                 <TextView
-                    android:id="@+id/duree"
+                    android:id="@+id/dureeParkingDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    android:drawableStart="@android:drawable/ic_menu_recent_history"
+                    android:drawableTint="#4287F5"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center"
                     android:text="TextView"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/distance" />
-
-                <Button
-                    android:id="@+id/map"
-                    android:layout_width="56dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="#D50000"
-                    android:drawableRight="@android:drawable/ic_dialog_map"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton" />
+                    app:layout_constraintStart_toEndOf="@+id/distanceParkingDetails" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -136,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="261dp"
                 android:background="#DADADA"
-                app:layout_constraintBottom_toTopOf="@+id/button"
+                app:layout_constraintBottom_toTopOf="@+id/buttonPaiement"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -149,8 +159,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato"
                     android:text="Horaire"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -160,8 +171,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="@font/lato"
                     android:text="Tarif"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -180,24 +192,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/horaire_libele">
 
                     <TextView
-                        android:id="@+id/horaire"
+                        android:id="@+id/horairesParkingDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/lato"
                         android:paddingHorizontal="10sp"
                         android:paddingVertical="10sp"
                         android:text="TextView"
-                        android:textSize="12sp" />
+                        android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/ouverture_fermeture"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="10sp"
-                        android:paddingVertical="10sp"
-                        android:text="TextView"
-                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -218,32 +222,40 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/lato"
                         android:paddingHorizontal="10sp"
                         android:paddingVertical="10sp"
                         android:text="1 heure (s)"
-                        android:textSize="12sp" />
+                        android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/tarif"
+                        android:id="@+id/tarifParkingDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/lato"
                         android:paddingHorizontal="10sp"
                         android:paddingVertical="10sp"
                         android:text="TextView"
-                        android:textSize="12sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonPaiement"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="61dp"
                 android:layout_marginHorizontal="20sp"
                 android:layout_marginTop="40sp"
-                android:backgroundTint="#B71C1C"
+                android:layout_marginBottom="40sp"
+                android:backgroundTint="#FFA000"
+                android:fontFamily="@font/lato"
                 android:text="Paiement"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
@@ -252,15 +264,28 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/share"
+        android:id="@+id/shareParkingDetails"
         android:layout_width="56dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="#00FFFCFC"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#FFA000"
         android:drawableRight="@android:drawable/ic_menu_share"
+        android:drawableTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton" />
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.Button" />
+
+    <Button
+        android:id="@+id/mapParkingDetails"
+        android:layout_width="61dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="144dp"
+        android:drawableEnd="@android:drawable/ic_menu_mylocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.917"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shareParkingDetails"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.Button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

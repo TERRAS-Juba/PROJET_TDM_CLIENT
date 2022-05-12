@@ -12,11 +12,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import com.example.tp3.databinding.ActivityMainBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.tp3.databinding.FragmentDetailsParkingBinding
+import retrofit2.Response.error
 
 
 class DetailsParkingFragment : Fragment() {
+    lateinit var Binding:FragmentDetailsParkingBinding
+    lateinit var parkingViewModel:ParkingViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -25,46 +30,57 @@ class DetailsParkingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details_parking, container, false)
+        Binding =FragmentDetailsParkingBinding.inflate(inflater,container,false);
+        return Binding.getRoot();
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val position= arguments?.getInt("position")
-        val vm= ViewModelProvider(requireActivity()).get(ViewModelParking::class.java)
-        val parking=vm.FetchParkingByIndex(position)
-        view.findViewById<TextView>(R.id.nom).text=parking.nom
-        view.findViewById<TextView>(R.id.position).text=parking.position
-        view.findViewById<TextView>(R.id.capacite).text=parking.capacite.plus(" % ")
-        view.findViewById<ImageView>(R.id.image).setImageResource(parking.image)
-        view.findViewById<TextView>(R.id.statut).text=parking.statut
-        if (parking.statut == "Fermé") {
-            view.findViewById<TextView>(R.id.statut).setTextColor(Color.parseColor("#f00020"))
-        } else {
-            view.findViewById<TextView>(R.id.statut).setTextColor(Color.parseColor("#008000"))
-        }
-        view.findViewById<TextView>(R.id.distance).text = parking.distance.plus(" Km ")
-        view.findViewById<TextView>(R.id.distance).setTextColor(Color.parseColor("#0080ff"))
-        view.findViewById<TextView>(R.id.duree).text = parking.duree.plus(" min ")
-        view.findViewById<TextView>(R.id.horaire).text=parking.horaire
-        view.findViewById<TextView>(R.id.ouverture_fermeture).text=parking.heure_ouverture.plus(" a ").plus(parking.heure_fermeture)
-        view.findViewById<TextView>(R.id.tarif).text=parking.tarif.toString().plus(" DZD ")
-        view.findViewById<Button>(R.id.map).setOnClickListener{
-            val latitude = parking.latitude
-            val longitude = parking.longitude
-            val intent = Uri.parse("geo:$latitude,$longitude").let {
-                Intent(Intent.ACTION_VIEW,it)
-            }
-            startActivity(intent)
+        val remplissageParking= arguments?.getString("remplissageParking")
+        val dureeParking= arguments?.getString("dureeParking")
+        val distanceParking=arguments?.getString("distanceParking")
+        parkingViewModel = ViewModelProvider(requireActivity()).get(ParkingViewModel::class.java)
+        if(position!=null){
+            val parking= parkingViewModel.parkings.value?.get(position)
+            if (parking != null) {
+                Binding.nomParkingDetails.text=parking.nom
+                Binding.communeParkingDetails.text=parking.commune
+                if (!parking.etat) {
+                    Binding.etatParkingDetails.text="Ferme"
+                    Binding.etatParkingDetails.setTextColor(Color.parseColor("#f00020"))
+                } else {
+                    Binding.etatParkingDetails.text="Ouvert"
+                    Binding.etatParkingDetails.setTextColor(Color.parseColor("#008000"))
+                }
+                Binding.remplissageParkingDetails.text=remplissageParking
+                Binding.distanceParkingDetails.text=distanceParking
+                Binding.distanceParkingDetails.setTextColor(Color.parseColor("#4287f5"))
+                Binding.dureeParkingDetails.text=dureeParking
+                Binding.horairesParkingDetails.text=parking.horaires
+                Binding.tarifParkingDetails.text=parking.tarif.toString().plus("DZD")
+                Binding.tarifParkingDetails.setTextColor(Color.parseColor("#008000"))
+                Glide.with(requireContext()).load(parking.photo).apply(RequestOptions().error(R.drawable.ic_baseline_error_outline_24)).into(Binding.imageParkingDetails)
+                Binding.mapParkingDetails.setOnClickListener{
+                    val latitude = parking.latitude
+                    val longitude = parking.longitude
+                    val intent = Uri.parse("geo:$latitude,$longitude").let {
+                        Intent(Intent.ACTION_VIEW,it)
+                    }
+                    startActivity(intent)
+                }
+                Binding.shareParkingDetails.setOnClickListener{
+                    val intent= Intent().apply {
+                        var chaine:String=""
+                        chaine="Nom : "+parking.nom
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT,
+                            chaine)
+                        type = "text/plain"
+                    }
+                    startActivity(intent)
+                }
 
-        }
-        view.findViewById<Button>(R.id.share).setOnClickListener{
-            val intent= Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT,
-                    parking.nom)
-                type = "text/plain"
             }
-            startActivity(intent)
         }
     }
 
