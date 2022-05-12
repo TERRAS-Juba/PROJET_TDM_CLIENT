@@ -1,23 +1,16 @@
-package com.example.parking_tp3
+package com.example.tp3.Adapters
 
-import android.app.Person
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
+import com.example.parking_tp3.Parking
 import com.example.tp3.R
 
 class ParkingAdapter(var context: Fragment, var parkings: List<Parking>) :

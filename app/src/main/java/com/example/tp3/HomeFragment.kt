@@ -5,13 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.parking_tp3.Parking
-import com.example.parking_tp3.ParkingAdapter
+import com.example.tp3.Adapters.ParkingAdapter
 
 
 class HomeFragment : Fragment() {
