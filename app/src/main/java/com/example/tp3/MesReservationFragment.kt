@@ -2,40 +2,59 @@ package com.example.tp3
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tp3.Adapters.ParkingAdapter
 import com.example.tp3.BDD.AppBD
 import com.example.tp3.Entites.Reservation
+import com.example.tp3.Entites.Utilisateur
+import com.example.tp3.ViewModels.UtilisateurViewModel
+import com.example.tp3.databinding.FragmentHomeBinding
+import com.example.tp3.databinding.FragmentMesReservationBinding
 import kotlinx.android.synthetic.main.fragment_mes_reservation.*
-import java.sql.Timestamp
 import java.util.*
 
 class MesReservationFragment : Fragment() {
-
+    lateinit var Binding: FragmentMesReservationBinding
+    lateinit var utilisateurViewModel: UtilisateurViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mes_reservation, container, false)
+        Binding = FragmentMesReservationBinding.inflate(inflater, container, false);
+        return Binding.root;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pref = this.activity?.getSharedPreferences("db_privee", Context.MODE_PRIVATE)?.edit()
+        utilisateurViewModel = ViewModelProvider(requireActivity()).get(UtilisateurViewModel::class.java)
+        var utilisateur= utilisateurViewModel.utilisateurs.value?.get(0)
+        val pr = requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)?.edit()
+        pr?.putBoolean("connected",true)
+        pr?.putString("email",utilisateur?.email)
+        pr?.putString("password",utilisateur?.mot_de_passe)
+        pr?.apply ()
         logout.setOnClickListener{
+            val pref = requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)?.edit()
             pref?.putBoolean("connected",false)
             pref?.putString("email","")
             pref?.putString("password","")
             pref?.apply ()
-            view.findNavController().navigate(R.id.action_mesReservationFragment_to_homeFragment)
+            utilisateurViewModel.utilisateurs.value=null
+           // view.findNavController().navigate(R.id.action_mesReservationFragment_to_loginFragment)
+            activity?.findNavController(R.id.navHost)?.navigate(R.id.action_mesReservationFragment_to_loginFragment2)
         }
         val bd: AppBD? = AppBD.buildDatabase(requireContext())
-        //bd?.getReservationDao()?.insert(Reservation(date = Date(), heure_entree = System.currentTimeMillis(), heure_sortie = System.currentTimeMillis(), etat = "En cours", code_qr = "123456", numero_place = 10))
+       // bd?.getReservationDao()?.insert(Reservation(date = Date(), heure_entree = System.currentTimeMillis(), heure_sortie = System.currentTimeMillis(), etat = "En cours", code_qr = "123456", numero_place = 10))
         //bd?.getReservationDao()?.insert(Reservation(date = Date(), heure_entree = System.currentTimeMillis(), heure_sortie = System.currentTimeMillis(), etat = "En cours", code_qr = "998877", numero_place = 22))
         val reservations:List<Reservation> = bd?.getReservationDao()?.getReservations()!!
         var toast:Toast
@@ -48,7 +67,7 @@ class MesReservationFragment : Fragment() {
         toast.show()
         text="La liste des reservation en cours \n"
         for (item in reservations){
-            if(item.heure_sortie> System.currentTimeMillis() && item.date>=Date()){
+            if(item.heure_sortie> System.currentTimeMillis() && item.date>= Date()){
                 text += item.code_qr + " | "
             }
         }

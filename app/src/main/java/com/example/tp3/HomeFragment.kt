@@ -53,8 +53,8 @@ class HomeFragment : Fragment() {
 
         })
         // List movies observer
-        parkingViewModel.parkings.observe(requireActivity(), Observer { data ->
-            adapter.setParkings(data)
+        parkingViewModel.parkings.observe(requireActivity(), Observer { parkings ->
+            adapter.setParkings(parkings)
         })
     }
 }

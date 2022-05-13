@@ -1,3 +1,3 @@
 package com.example.tp3
 
-const val url = "https://655d-105-235-129-255.in.ngrok.io"
+const val url = "https://c3d7-105-235-128-2.eu.ngrok.io"

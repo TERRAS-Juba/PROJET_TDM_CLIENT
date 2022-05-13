@@ -15,12 +15,12 @@
             app:destination="@id/detailsParkingFragment" />
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_homeFragment_to_mesReservationFragment"
             app:destination="@id/mesReservationFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/detailsParkingFragment"
@@ -33,10 +33,9 @@
         android:label="fragment_mes_reservation"
         tools:layout="@layout/fragment_mes_reservation" >
         <action
-            android:id="@+id/action_mesReservationFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="false" />
+            android:id="@+id/action_mesReservationFragment_to_loginFragment2"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

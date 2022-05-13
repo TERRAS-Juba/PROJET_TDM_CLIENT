@@ -3,6 +3,7 @@ package com.example.tp3
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.edit
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             val isConnected = pref.getBoolean("connected", false)
             val currentEmail=pref.getString("email","")
             val cuurentPassword=pref.getString("password","")
+            Log.d("Connexion",isConnected.toString())
             when(item.itemId) {
                 R.id.homeFragment -> {
                     findNavController(R.id.navHost)
