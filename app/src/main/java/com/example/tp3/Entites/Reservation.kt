@@ -7,12 +7,14 @@ import java.sql.Timestamp
 
 @Entity
 data class Reservation (
-    var date:Date,
+    var date_reservation:Date,
     var heure_entree:Long,
     var heure_sortie:Long,
     var etat:String,
-    var code_qr:String,
-    var numero_place:Int
+    var numero_place:Int,
+    var id_parking:Int,
+    val id_utilisateur:Int,
+    var id_paiement:Int
 ){
     @PrimaryKey(autoGenerate = true)
     var id_reservation:Int = 0

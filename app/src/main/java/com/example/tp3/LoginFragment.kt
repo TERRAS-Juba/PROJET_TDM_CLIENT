@@ -22,12 +22,11 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        Binding = FragmentLoginBinding.inflate(inflater, container, false);
-        return Binding.root;
+        Binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return Binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
         Binding.progressBarLogin.visibility = View.GONE
         utilisateurViewModel =
@@ -35,24 +34,27 @@ class LoginFragment : Fragment() {
         Binding.login.setOnClickListener {
             val emailUser = Binding.email.text.toString()
             val passwordUser = Binding.mdp.text.toString()
+            var data : HashMap<String, String> = HashMap<String, String> ()
+            data["email"] = emailUser;
+            data["mot_de_passe"] = passwordUser;
             if (emailUser != "" && passwordUser != "") {
-                utilisateurViewModel.connexionUtilisateurEmail(emailUser, passwordUser)
+                utilisateurViewModel.connexionUtilisateurEmail(data)
             } else {
                 Toast.makeText(
                     requireActivity(),
-                    "L'email et mot de passe ne doivent pas etre vides!",
+                    "Veuillez remplir les champs email et mot de passe s'il vous plait!",
                     Toast.LENGTH_SHORT
                 ).show()
             }
         }
-        utilisateurViewModel.loading.observe(requireActivity(), Observer { loading ->
+        utilisateurViewModel.loading.observe(viewLifecycleOwner, Observer { loading ->
             if (!loading) {
                 Binding.progressBarLogin.visibility = View.GONE
             } else {
                 Binding.progressBarLogin.visibility = View.VISIBLE
             }
         })
-        utilisateurViewModel.errorMessage.observe(requireActivity(), Observer { message ->
+        utilisateurViewModel.errorMessage.observe(viewLifecycleOwner, Observer { message ->
             Toast.makeText(
                 requireActivity(),
                 "Une erreur s'est produite",
@@ -60,10 +62,9 @@ class LoginFragment : Fragment() {
             ).show()
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         })
-        utilisateurViewModel.utilisateurs.observe(requireActivity(), Observer { utilisateurs ->
+        utilisateurViewModel.utilisateurs.observe(viewLifecycleOwner, Observer { utilisateurs ->
             if (utilisateurViewModel.loading.value == false) {
                 if (utilisateurs!=null && utilisateurs.isEmpty()) {
-                    if(context!=null){
                         var text = "La connexion a échouée"
                         val duration = Toast.LENGTH_LONG
                         var toast = Toast.makeText(context, text, duration)
@@ -71,18 +72,10 @@ class LoginFragment : Fragment() {
                         text = "Email ou mot de passe incorrect"
                         toast = Toast.makeText(context, text, duration)
                         toast.show()
-                    }else{
-                        Log.d("Erreur: ","Null pointer Execption, Toast message")
-                    }
                 } else if (utilisateurs!=null && utilisateurs.isNotEmpty()) {
-                    //view.findNavController().navigate(R.id.action_loginFragment_to_mesReservationFragment2)
                     activity?.findNavController(R.id.navHost)?.navigate(R.id.action_loginFragment_to_mesReservationFragment2)
                 }
             }
         })
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
     }
 }

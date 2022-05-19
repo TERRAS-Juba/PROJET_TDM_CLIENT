@@ -35,7 +35,8 @@
         <action
             android:id="@+id/action_mesReservationFragment_to_loginFragment2"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/homeFragment" />
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
