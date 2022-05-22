@@ -31,14 +31,30 @@ class LoginFragment : Fragment() {
         Binding.progressBarLogin.visibility = View.GONE
         utilisateurViewModel =
             ViewModelProvider(requireActivity()).get(UtilisateurViewModel::class.java)
-        Binding.login.setOnClickListener {
-            val emailUser = Binding.email.text.toString()
-            val passwordUser = Binding.mdp.text.toString()
+        Binding.btnRegLogin.setOnClickListener {
+            activity?.findNavController(R.id.navHost)?.navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+        Binding.login.setOnClickListener{
+        val input = Binding.email.text.toString()
+        val passwordUser = Binding.mdp.text.toString()
             var data : HashMap<String, String> = HashMap<String, String> ()
-            data["email"] = emailUser;
-            data["mot_de_passe"] = passwordUser;
-            if (emailUser != "" && passwordUser != "") {
-                utilisateurViewModel.connexionUtilisateurEmail(data)
+            if (input != "" && passwordUser != "") {
+                if(android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()){
+                    data["email"] = input;
+                    data["mot_de_passe"] = passwordUser;
+                    utilisateurViewModel.connexionUtilisateurEmail(data)
+                }else if(android.util.Patterns.PHONE.matcher(input).matches()){
+                    data["numero_telephone"] = input;
+                    data["mot_de_passe"] = passwordUser;
+                    utilisateurViewModel.connexionUtilisateurNumeroTelephone(data)
+                }else{
+                    Toast.makeText(
+                        requireActivity(),
+                        "Les données saisies sont invalides!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
             } else {
                 Toast.makeText(
                     requireActivity(),

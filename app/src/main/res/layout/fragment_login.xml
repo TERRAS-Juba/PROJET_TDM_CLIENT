@@ -102,8 +102,7 @@
                     android:backgroundTint="#FBFBFB"
                     android:drawableStart="@drawable/ic_email"
                     android:drawablePadding="6dp"
-                    android:hint="Email"
-                    android:inputType="textWebEmailAddress" />
+                    android:hint="Email" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
