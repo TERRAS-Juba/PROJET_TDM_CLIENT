@@ -30,6 +30,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parkingViewModel = ViewModelProvider(requireActivity()).get(ParkingViewModel::class.java)
+        parkingViewModel.errorMessage.value=null
         val layoutManager = LinearLayoutManager(requireActivity())
         recyclerView = Binding.recycleParking
         recyclerView.layoutManager = layoutManager
@@ -48,8 +49,11 @@ class HomeFragment : Fragment() {
         })
         // Error message observer
         parkingViewModel.errorMessage.observe(requireActivity(), Observer { message ->
-            Toast.makeText(requireContext(), "Une erreur s'est produite", Toast.LENGTH_SHORT).show()
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            if(message!=null){
+                Toast.makeText(requireContext(), "Une erreur s'est produite", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+
 
         })
         // List movies observer

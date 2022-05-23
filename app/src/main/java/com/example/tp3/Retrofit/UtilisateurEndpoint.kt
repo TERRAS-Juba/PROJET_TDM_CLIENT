@@ -18,7 +18,7 @@ interface UtilisateurEndpoint {
     suspend fun connexionUtilisateurNumeroTelephone(@FieldMap data:Map<String,String>): Response<List<Utilisateur>>
     @FormUrlEncoded
     @POST("/utilisateur/ajouter_utilisateur/")
-    suspend fun inscriptionUtilisateur(@FieldMap data:Map<String,String>):Response<String>
+    suspend fun inscriptionUtilisateur(@FieldMap data:Map<String,String>):Response<Void>
     companion object{
         @Volatile
         var utilisateurEndpoint:UtilisateurEndpoint?=null

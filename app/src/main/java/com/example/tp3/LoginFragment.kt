@@ -25,12 +25,12 @@ class LoginFragment : Fragment() {
         Binding = FragmentLoginBinding.inflate(inflater, container, false)
         return Binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Binding.progressBarLogin.visibility = View.GONE
         utilisateurViewModel =
             ViewModelProvider(requireActivity()).get(UtilisateurViewModel::class.java)
+        utilisateurViewModel.errorMessage.value=null
         Binding.btnRegLogin.setOnClickListener {
             activity?.findNavController(R.id.navHost)?.navigate(R.id.action_loginFragment_to_registerFragment)
         }
@@ -71,12 +71,14 @@ class LoginFragment : Fragment() {
             }
         })
         utilisateurViewModel.errorMessage.observe(viewLifecycleOwner, Observer { message ->
-            Toast.makeText(
-                requireActivity(),
-                "Une erreur s'est produite",
-                Toast.LENGTH_SHORT
-            ).show()
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            if(message!=null){
+                Toast.makeText(
+                    requireActivity(),
+                    "Une erreur s'est produite",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            }
         })
         utilisateurViewModel.utilisateurs.observe(viewLifecycleOwner, Observer { utilisateurs ->
             if (utilisateurViewModel.loading.value == false) {

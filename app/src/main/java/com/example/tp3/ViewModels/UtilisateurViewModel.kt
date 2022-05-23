@@ -1,5 +1,6 @@
 package com.example.tp3.ViewModels
 
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tp3.Entites.Utilisateur
@@ -7,16 +8,18 @@ import com.example.tp3.Retrofit.UtilisateurEndpoint
 import kotlinx.coroutines.*
 import retrofit2.http.FieldMap
 
-class UtilisateurViewModel:ViewModel() {
-    var utilisateurs=MutableLiveData<List<Utilisateur>>()
-    var loading=MutableLiveData<Boolean>()
+class UtilisateurViewModel : ViewModel() {
+    var utilisateurs = MutableLiveData<List<Utilisateur>>()
+    var loading = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
+    val registerStatus=MutableLiveData<Boolean>()
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         onError(throwable.localizedMessage)
     }
-    fun connexionUtilisateurEmail(@FieldMap data:Map<String,String>) {
-        loading.value=true
-        if (utilisateurs.value == null  || utilisateurs.value!!.isEmpty()) {
+
+    fun connexionUtilisateurEmail(@FieldMap data: Map<String, String>) {
+        loading.value = true
+        if (utilisateurs.value == null || utilisateurs.value!!.isEmpty()) {
             CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
                 val response = UtilisateurEndpoint.createInstance().connexionUtilisateurEmail(data)
                 withContext(Dispatchers.Main) {
@@ -30,11 +33,13 @@ class UtilisateurViewModel:ViewModel() {
             }
         }
     }
-    fun connexionUtilisateurNumeroTelephone(@FieldMap data:Map<String,String>) {
-        loading.value=true
-        if (utilisateurs.value == null  || utilisateurs.value!!.isEmpty()) {
+
+    fun connexionUtilisateurNumeroTelephone(@FieldMap data: Map<String, String>) {
+        loading.value = true
+        if (utilisateurs.value == null || utilisateurs.value!!.isEmpty()) {
             CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-                val response = UtilisateurEndpoint.createInstance().connexionUtilisateurNumeroTelephone(data)
+                val response =
+                    UtilisateurEndpoint.createInstance().connexionUtilisateurNumeroTelephone(data)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful && response.body() != null) {
                         loading.value = false
@@ -46,21 +51,23 @@ class UtilisateurViewModel:ViewModel() {
             }
         }
     }
-    fun inscriptionUtilisateur(@FieldMap data:Map<String,String>) {
-        loading.value=true
-        if (utilisateurs.value == null  || utilisateurs.value!!.isEmpty()) {
-            CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-                val response = UtilisateurEndpoint.createInstance().inscriptionUtilisateur(data)
-                withContext(Dispatchers.Main) {
-                    if (response.code()==200 ) {
-                        loading.value = false
-                    } else {
-                        onError(response.message())
-                    }
+
+    fun inscriptionUtilisateur(@FieldMap data: Map<String, String>) {
+        loading.value = true
+        CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = UtilisateurEndpoint.createInstance().inscriptionUtilisateur(data)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful ) {
+                    loading.value = false
+                    registerStatus.value=true
+                } else {
+                    registerStatus.value=false
+                    onError(response.message())
                 }
             }
         }
     }
+
     private fun onError(message: String) {
         errorMessage.value = message
         loading.value = false
