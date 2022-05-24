@@ -11,7 +11,8 @@ class ParkingViewModel : ViewModel() {
     val loading = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        onError(throwable.localizedMessage)
+
+        onError(throwable.localizedMessage.toString())
     }
     fun getParkings() {
         if (parkings.value == null) {
@@ -31,7 +32,7 @@ class ParkingViewModel : ViewModel() {
         }
     }
     private fun onError(message: String) {
-        errorMessage.value = message
+        errorMessage.postValue( message)
         loading.value = false
     }
 }

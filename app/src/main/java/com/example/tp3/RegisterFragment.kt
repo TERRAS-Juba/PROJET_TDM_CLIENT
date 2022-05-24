@@ -119,7 +119,12 @@ class RegisterFragment : Fragment() {
                 alertDialog.show()
             }
         })
+        utilisateurViewModel.errorMessage.observe(requireActivity(), Observer { message ->
+            if (message != null) {
+                Toast.makeText(requireContext(), "Une erreur s'est produite", Toast.LENGTH_SHORT)
+                    .show()
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
-
-
 }

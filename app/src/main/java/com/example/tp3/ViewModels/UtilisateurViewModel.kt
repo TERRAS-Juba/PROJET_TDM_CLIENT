@@ -14,7 +14,7 @@ class UtilisateurViewModel : ViewModel() {
     val errorMessage = MutableLiveData<String>()
     val registerStatus=MutableLiveData<Boolean>()
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        onError(throwable.localizedMessage)
+        onError(throwable.localizedMessage.toString())
     }
 
     fun connexionUtilisateurEmail(@FieldMap data: Map<String, String>) {
@@ -67,9 +67,8 @@ class UtilisateurViewModel : ViewModel() {
             }
         }
     }
-
     private fun onError(message: String) {
-        errorMessage.value = message
+        errorMessage.postValue( message)
         loading.value = false
     }
 }

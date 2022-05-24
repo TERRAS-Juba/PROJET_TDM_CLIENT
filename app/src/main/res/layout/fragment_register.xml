@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="GarreMe"
+        android:text="@string/app_name"
         android:textColor="#CB8E00"
         android:textSize="42sp"
         android:textStyle="bold"
@@ -52,16 +52,6 @@
         app:layout_constraintTop_toTopOf="@+id/view">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:hint="Nom"
-            android:text="REGISTER"
-            android:textColor="#CB8E00"
-            android:textSize="24sp"
-            android:textStyle="bold" />
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
@@ -211,5 +201,16 @@
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         tools:ignore="SpeakableTextPresentCheck"></Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Nom"
+        android:text="REGISTER"
+        android:textColor="#CB8E00"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="285dp"
+        tools:layout_editor_absoluteY="93dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
