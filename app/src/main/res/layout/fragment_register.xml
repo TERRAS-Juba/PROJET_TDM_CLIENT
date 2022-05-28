@@ -76,6 +76,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="6dp"
+                android:id="@+id/nomTextInputLayout"
+                app:errorEnabled="true"
+                app:endIconMode="clear_text"
                 android:paddingEnd="6dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -93,6 +96,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="6dp"
+                android:id="@+id/prenomTextInputLayout"
+                app:errorEnabled="true"
+                app:endIconMode="clear_text"
                 android:paddingEnd="6dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -110,10 +116,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="6dp"
+                android:id="@+id/numTextInputLayout"
+                app:errorEnabled="true"
+                app:endIconMode="clear_text"
                 android:paddingEnd="6dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/numero_telephone"
+                    android:id="@+id/numeroTelephone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#FBFBFB"
@@ -127,6 +136,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:id="@+id/emailTextInputLayout"
+                app:errorEnabled="true"
+                app:endIconMode="clear_text"
                 android:paddingEnd="6dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -147,6 +159,9 @@
                 android:layout_marginBottom="24dp"
                 android:paddingStart="6dp"
                 android:paddingTop="6dp"
+                android:id="@+id/passwordTextInputLayout"
+                app:errorEnabled="true"
+                app:endIconMode="clear_text"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -156,10 +171,13 @@
                     android:layout_marginBottom="24dp"
                     android:paddingStart="6dp"
                     android:paddingTop="6dp"
+                    android:id="@+id/confirmpasswordTextInputLayout"
+                    app:errorEnabled="true"
+                    app:endIconMode="clear_text"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/confirmation_mot_de_passe"
+                        android:id="@+id/confirmationmdp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#FFF8F8"
@@ -173,7 +191,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/mot_de_passe"
+                    android:id="@+id/mdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#FFF8F8"
@@ -211,6 +229,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="285dp"
-        tools:layout_editor_absoluteY="93dp" />
+        tools:layout_editor_absoluteY="93dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

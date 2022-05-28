@@ -1,6 +1,8 @@
 package com.example.tp3
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,48 +38,28 @@ class RegisterFragment : Fragment() {
         utilisateurViewModel.errorMessage.value = null
         Binding.progressBarRegister.visibility = View.GONE
         Binding.register.setOnClickListener {
-            var data: HashMap<String, String> = HashMap<String, String>()
-            val email = Binding.email.text.toString()
-            val mot_de_passe = Binding.motDePasse.text.toString()
-            val confirmation_mot_de_passe = Binding.confirmationMotDePasse.text.toString()
-            val numero_telephone = Binding.numeroTelephone.text.toString()
-            val nom = Binding.nom.text.toString()
-            val prenom = Binding.prenom.text.toString()
-            if (email != "" && mot_de_passe != "" && numero_telephone != "" && nom != "" && prenom != "" && confirmation_mot_de_passe != "") {
-                if (mot_de_passe == confirmation_mot_de_passe) {
-                    if (android.util.Patterns.EMAIL_ADDRESS.matcher(email)
-                            .matches() && android.util.Patterns.PHONE.matcher(numero_telephone)
-                            .matches()
-                    ) {
+            if (isValid()){
+                var data: HashMap<String, String> = HashMap<String, String>()
+                val email = Binding.email.text.toString()
+                val mot_de_passe = Binding.mdp.text.toString()
+                val confirmation_mot_de_passe = Binding.confirmationmdp.text.toString()
+                val numero_telephone = Binding.numeroTelephone.text.toString()
+                val nom = Binding.nom.text.toString()
+                val prenom = Binding.prenom.text.toString()
+
+
                         data["email"] = email;
                         data["mot_de_passe"] = mot_de_passe;
                         data["numero_telephone"] = numero_telephone;
                         data["nom"] = nom;
                         data["prenom"] = prenom;
                         utilisateurViewModel.inscriptionUtilisateur(data)
-                    } else {
-                        Toast.makeText(
-                            requireActivity(),
-                            "Les données saisies sont invalides!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } else {
-                    Toast.makeText(
-                        requireActivity(),
-                        "Le mot de passe et le confirmation ne correspondent pas!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
 
-            } else {
-                Toast.makeText(
-                    requireActivity(),
-                    "Veuillez remplir tous les champs de saisie s'il vous plait!!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
+            }  }
+
+
+
+
         utilisateurViewModel.loading.observe(viewLifecycleOwner, Observer { loading ->
             if (!loading) {
                 Binding.progressBarRegister.visibility = View.GONE
@@ -126,5 +108,146 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
         })
+
+        }
+
+
+
+    inner class textFieldValidation(private val view: View) : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            when (view.id) {
+                R.id.email -> {
+                    validateEmail()
+                }
+                R.id.mdp -> {
+                    validatePassword()
+                }
+                R.id.confirmationmdp -> {
+                    validateConfirmPassword()
+                }
+                R.id.numeroTelephone -> {
+                    validatePhone()
+                }
+                R.id.nom -> {
+                    validateNom()
+                }
+                R.id.prenom -> {
+                    validatePrenom()
+                }
+            }
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
+        }
+    }
+    fun isValid(): Boolean = validateNom() && validatePrenom() && validatePhone() && validateEmail() && validatePassword() && validateConfirmPassword()
+
+
+    fun validateEmail(): Boolean {
+        if (Binding.email.text.toString().trim().isEmpty()) {
+            Binding.emailTextInputLayout.error = "Champs requis!"
+            Binding.email.requestFocus()
+            return false
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(Binding.email.text.toString())
+                .matches()
+        ) {
+            Binding.emailTextInputLayout.error = "Email invalide!"
+            Binding.email.requestFocus()
+            return false
+        } else {
+            Binding.emailTextInputLayout.isErrorEnabled = false
+        }
+        return true
+    }
+fun validatePhone():Boolean{
+    if (Binding.numeroTelephone.text.toString().isEmpty()){
+        Binding.numTextInputLayout.error = "Champs requis!"
+        Binding.numeroTelephone.requestFocus()
+        return false
+    }else if ( !android.util.Patterns.PHONE.matcher(Binding.numeroTelephone.text.toString())
+            .matches()){
+        Binding.numTextInputLayout.error = "Numéro de téléphone invalide!"
+        Binding.numeroTelephone.requestFocus()
+        return false
+    } else {
+        Binding.numTextInputLayout.isErrorEnabled = false
+    }
+    return true
+}
+    fun validatePassword(): Boolean {
+        if (Binding.mdp.text.toString().isEmpty()) {
+            Binding.passwordTextInputLayout.error = "Champs requis!"
+            Binding.mdp.requestFocus()
+            return false
+        } else if (Binding.mdp.text.toString().length <= 6) {
+            Binding.passwordTextInputLayout.error =
+                "Mot de passe doit contenir au moins 6 caracteres!"
+            Binding.mdp.requestFocus()
+            return false
+        } else {
+            Binding.passwordTextInputLayout.isErrorEnabled = false
+        }
+        return true
+    }
+    fun validateNom(): Boolean {
+        if (Binding.nom.text.toString().isEmpty()) {
+            Binding.nomTextInputLayout.error = "Champs requis!"
+            Binding.nom.requestFocus()
+            return false
+        } else if (Binding.nom.text.toString().length <3) {
+            Binding.nomTextInputLayout.error =
+                "nom doit contenir au moins 3 caracteres!"
+            Binding.nom.requestFocus()
+            return false
+        } else {
+            Binding.nomTextInputLayout.isErrorEnabled = false
+        }
+        return true
+    }
+    fun validatePrenom(): Boolean {
+        if (Binding.prenom.text.toString().isEmpty()) {
+            Binding.prenomTextInputLayout.error = "Champs requis!"
+            Binding.prenom.requestFocus()
+            return false
+        } else if (Binding.prenom.text.toString().length <3) {
+            Binding.prenomTextInputLayout.error =
+                "prenom doit contenir au moins 3 caracteres!"
+            Binding.prenom.requestFocus()
+            return false
+        } else {
+            Binding.prenomTextInputLayout.isErrorEnabled = false
+        }
+        return true
+    }
+    fun validateConfirmPassword(): Boolean {
+
+        when {
+            Binding.confirmationmdp.text.toString().trim().isEmpty() -> {
+                Binding.confirmpasswordTextInputLayout.error = "Champ requis!"
+                Binding.confirmationmdp.requestFocus()
+                return false
+            }
+            Binding.confirmationmdp.text.toString() != Binding.mdp.text.toString() -> {
+                Binding.confirmpasswordTextInputLayout.error = "Le mot de passe et le confirmation ne correspondent pas!"
+                Binding.confirmationmdp.requestFocus()
+                return false
+            }
+            else -> {
+                Binding.confirmpasswordTextInputLayout.isErrorEnabled = false
+            }
+        }
+        return true
+    }
+
+    fun setupListers() {
+        Binding.email.addTextChangedListener(textFieldValidation(Binding.email))
+        Binding.mdp.addTextChangedListener(textFieldValidation(Binding.mdp))
+        Binding.confirmationmdp.addTextChangedListener(textFieldValidation(Binding.confirmationmdp))
+        Binding.numeroTelephone.addTextChangedListener(textFieldValidation(Binding.numeroTelephone))
+        Binding.nom.addTextChangedListener(textFieldValidation(Binding.nom))
+        Binding.prenom.addTextChangedListener(textFieldValidation(Binding.prenom))
     }
 }
