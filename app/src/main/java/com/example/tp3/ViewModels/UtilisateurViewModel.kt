@@ -14,9 +14,10 @@ class UtilisateurViewModel : ViewModel() {
     val errorMessage = MutableLiveData<String>()
     val registerStatus=MutableLiveData<Boolean>()
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        onError(throwable.localizedMessage.toString())
+        CoroutineScope(Dispatchers.Main).launch {
+            onError(throwable.localizedMessage.toString())
+        }
     }
-
     fun connexionUtilisateurEmail(@FieldMap data: Map<String, String>) {
         loading.value = true
         if (utilisateurs.value == null || utilisateurs.value!!.isEmpty()) {
@@ -33,7 +34,6 @@ class UtilisateurViewModel : ViewModel() {
             }
         }
     }
-
     fun connexionUtilisateurNumeroTelephone(@FieldMap data: Map<String, String>) {
         loading.value = true
         if (utilisateurs.value == null || utilisateurs.value!!.isEmpty()) {
@@ -51,7 +51,6 @@ class UtilisateurViewModel : ViewModel() {
             }
         }
     }
-
     fun inscriptionUtilisateur(@FieldMap data: Map<String, String>) {
         loading.value = true
         CoroutineScope(Dispatchers.IO + exceptionHandler).launch {

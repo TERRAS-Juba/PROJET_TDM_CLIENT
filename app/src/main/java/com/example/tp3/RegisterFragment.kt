@@ -17,7 +17,6 @@ import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.FragmentLoginBinding
 import com.example.tp3.databinding.FragmentRegisterBinding
 
-
 class RegisterFragment : Fragment() {
     lateinit var Binding: FragmentRegisterBinding
     lateinit var utilisateurViewModel: UtilisateurViewModel
@@ -29,7 +28,6 @@ class RegisterFragment : Fragment() {
         Binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return Binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         utilisateurViewModel =
@@ -56,10 +54,6 @@ class RegisterFragment : Fragment() {
                         utilisateurViewModel.inscriptionUtilisateur(data)
 
             }  }
-
-
-
-
         utilisateurViewModel.loading.observe(viewLifecycleOwner, Observer { loading ->
             if (!loading) {
                 Binding.progressBarRegister.visibility = View.GONE
@@ -110,13 +104,9 @@ class RegisterFragment : Fragment() {
         })
 
         }
-
-
-
     inner class textFieldValidation(private val view: View) : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
-
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             when (view.id) {
                 R.id.email -> {
@@ -139,13 +129,10 @@ class RegisterFragment : Fragment() {
                 }
             }
         }
-
         override fun afterTextChanged(p0: Editable?) {
         }
     }
     fun isValid(): Boolean = validateNom() && validatePrenom() && validatePhone() && validateEmail() && validatePassword() && validateConfirmPassword()
-
-
     fun validateEmail(): Boolean {
         if (Binding.email.text.toString().trim().isEmpty()) {
             Binding.emailTextInputLayout.error = "Champs requis!"

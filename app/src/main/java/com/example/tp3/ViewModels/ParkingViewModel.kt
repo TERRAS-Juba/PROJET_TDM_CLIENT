@@ -10,9 +10,11 @@ class ParkingViewModel : ViewModel() {
     var parkings = MutableLiveData<List<Parking>>()
     val loading = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
+    var postion=MutableLiveData<HashMap<String,Double>>()
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-
-        onError(throwable.localizedMessage.toString())
+        CoroutineScope(Dispatchers.Main).launch {
+            onError(throwable.localizedMessage.toString())
+        }
     }
     fun getParkings() {
         if (parkings.value == null) {
