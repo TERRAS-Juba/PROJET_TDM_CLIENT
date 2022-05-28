@@ -131,6 +131,8 @@ class MainActivity : AppCompatActivity() {
                         var position = HashMap<String, Double>()
                         position["latitude"] = location.latitude
                         position["longitude"] = location.longitude
+                        position["vitesse"]= location.speed.toDouble()
+                        Log.d("Vitesse", location.speed.toString())
                         Log.d("Latitude", location.latitude.toString())
                         Log.d("Longitude", location.longitude.toString())
                         parkingViewModel.postion.value = position

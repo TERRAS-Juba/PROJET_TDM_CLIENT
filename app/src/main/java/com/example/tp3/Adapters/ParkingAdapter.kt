@@ -17,20 +17,24 @@ import com.example.tp3.Entites.Parking
 import com.example.tp3.R
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
+import java.lang.Math.round
+import java.math.BigDecimal
 
 class ParkingAdapter(var context: FragmentActivity) :
     RecyclerView.Adapter<ParkingAdapter.ParkingHolder>() {
     var data = mutableListOf<Parking>()
     var latitude_actuelle: Double = 0.0
     var longitude_actuelle: Double = 0.0
+    var vitesse:Double=1.0
     fun setParkings(parkings: List<Parking>) {
         this.data = parkings.toMutableList()
         notifyDataSetChanged()
     }
 
-    fun setPostion(latitude_actuelle: Double, longitude_actuelle: Double) {
+    fun setPostion(latitude_actuelle: Double, longitude_actuelle: Double,vitesse: Double) {
         this.latitude_actuelle = latitude_actuelle
         this.longitude_actuelle = longitude_actuelle
+        this.vitesse=vitesse
         notifyDataSetChanged()
     }
 
@@ -69,9 +73,13 @@ class ParkingAdapter(var context: FragmentActivity) :
                 holder.distanceParking.text = "Calcul en cours ..."
                 holder.dureeParking.text = "Calcul en cours ..."
             } else {
+                if(vitesse==0.0){
+                    holder.dureeParking.text=String.format("%.2f",(((distance/1000)/50)*60)).plus(" min")
+                }else{
+                    holder.dureeParking.text=String.format("%.2f",((distance/vitesse)/60)).plus(" min")
+                }
                 holder.distanceParking.text = String.format("%.2f", distance / 1000).plus(" Km")
                 holder.distanceParking.setTextColor(Color.parseColor("#4287f5"))
-                holder.dureeParking.text = String.format("%.2f", distance / 1000).plus(" Km")
             }
             //===================================================================
             Glide.with(context).load(parking.photo)

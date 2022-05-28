@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
         })
         parkingViewModel.postion.observe(viewLifecycleOwner, Observer { position ->
             if (position != null) {
-                adapter.setPostion(position["latitude"]!!, position["longitude"]!!)
+                adapter.setPostion(position["latitude"]!!, position["longitude"]!!,position["vitesse"]!!)
             }
         })
     }
