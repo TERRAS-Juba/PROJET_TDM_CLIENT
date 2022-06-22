@@ -14,7 +14,8 @@ data class Reservation (
     var numero_place:Int,
     var id_parking:Int,
     val id_utilisateur:Int,
-    var id_paiement:Int
+    var id_paiement:Int,
+    var synchronise:Boolean
 ){
     @PrimaryKey(autoGenerate = true)
     var id_reservation:Int = 0

@@ -25,16 +25,16 @@ class ParkingAdapter(var context: FragmentActivity) :
     var data = mutableListOf<Parking>()
     var latitude_actuelle: Double = 0.0
     var longitude_actuelle: Double = 0.0
-    var vitesse:Double=1.0
+    var vitesse: Double = 1.0
     fun setParkings(parkings: List<Parking>) {
         this.data = parkings.toMutableList()
         notifyDataSetChanged()
     }
 
-    fun setPostion(latitude_actuelle: Double, longitude_actuelle: Double,vitesse: Double) {
+    fun setPostion(latitude_actuelle: Double, longitude_actuelle: Double, vitesse: Double) {
         this.latitude_actuelle = latitude_actuelle
         this.longitude_actuelle = longitude_actuelle
-        this.vitesse=vitesse
+        this.vitesse = vitesse
         notifyDataSetChanged()
     }
 
@@ -73,10 +73,11 @@ class ParkingAdapter(var context: FragmentActivity) :
                 holder.distanceParking.text = "Calcul en cours ..."
                 holder.dureeParking.text = "Calcul en cours ..."
             } else {
-                if(vitesse==0.0){
-                    holder.dureeParking.text=String.format("%.2f",(((distance/1000)/50)*60)).plus(" min")
-                }else{
-                    holder.dureeParking.text=String.format("%.2f",((distance/vitesse)/60)).plus(" min")
+                if (vitesse == 0.0) {
+                    holder.dureeParking.text = String.format("%.2f", (distance) / 1000).plus(" h")
+                } else {
+                    holder.dureeParking.text =
+                        String.format("%.2f", ((distance / vitesse) / 60) / 60).plus(" h")
                 }
                 holder.distanceParking.text = String.format("%.2f", distance / 1000).plus(" Km")
                 holder.distanceParking.setTextColor(Color.parseColor("#4287f5"))

@@ -29,7 +29,6 @@ class MesReservationFragment : Fragment() {
         Binding = FragmentMesReservationBinding.inflate(inflater, container, false);
         return Binding.root;
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         utilisateurViewModel = ViewModelProvider(requireActivity()).get(UtilisateurViewModel::class.java)
@@ -62,7 +61,7 @@ class MesReservationFragment : Fragment() {
         toast.show()
         text="La liste des reservation en cours \n"
         for (item in reservations){
-            if(item.heure_sortie> System.currentTimeMillis() && item.date_reservation>= Date()){
+            if((item.heure_sortie> System.currentTimeMillis() && item.date_reservation==Date())||(item.date_reservation> Date())){
                 text += item.id_reservation.toString() + " | "
             }
         }

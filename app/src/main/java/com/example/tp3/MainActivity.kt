@@ -9,6 +9,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -20,22 +21,46 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.tp3.databinding.ActivityMainBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
+import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     lateinit var parkingViewModel: ParkingViewModel
+    lateinit var locationRequest:LocationRequest
+    lateinit var locationCallback:LocationCallback
+    lateinit var location:Location
     private lateinit var binding: ActivityMainBinding
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
-    var handler: Handler = Handler()
-    var runnable: Runnable? = null
-    var delay = 5000
-    var cpt: Double = 0.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        locationRequest= LocationRequest.create().apply{
+            interval = 10000 // Intervalle de mise à jour en millisecondes
+            fastestInterval = 500 // Intervalle le plus rapide en millisecondes
+            priority= PRIORITY_HIGH_ACCURACY
+            maxWaitTime= 100 // Temps d’attente max en millisecondes
+        }
+        locationCallback= object: LocationCallback() {
+            override fun onLocationResult(p0: LocationResult) {
+                super.onLocationResult(p0)
+                location= p0.lastLocation!!
+                if (location == null) {
+                    Log.d("Erreur", "Emplacement invalid")
+                } else {
+                    var position = HashMap<String, Double>()
+                    position["latitude"] = location.latitude
+                    position["longitude"] = location.longitude
+                    position["vitesse"]= location.speed.toDouble()
+                    Log.d("Vitesse", location.speed.toString())
+                    Log.d("Latitude", location.latitude.toString())
+                    Log.d("Longitude", location.longitude.toString())
+                    parkingViewModel.postion.value = position
+                }
+            }
+        }
+        getLastLocation()
         parkingViewModel = ViewModelProvider(this).get(ParkingViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -86,20 +111,6 @@ class MainActivity : AppCompatActivity() {
         }
         return false
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_ID) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // Granted. Start getting the location information
-            }
-        }
-    }
-
     private fun isLocationEnabled(): Boolean {
         var locationManager: LocationManager =
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -107,7 +118,6 @@ class MainActivity : AppCompatActivity() {
             LocationManager.NETWORK_PROVIDER
         )
     }
-
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
@@ -118,26 +128,14 @@ class MainActivity : AppCompatActivity() {
             PERMISSION_ID
         )
     }
-
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
-                mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
-                    var location: Location? = task.result
-                    if (location == null) {
-                        Log.d("Erreur", "Emplacement invalid")
-                    } else {
-                        var position = HashMap<String, Double>()
-                        position["latitude"] = location.latitude
-                        position["longitude"] = location.longitude
-                        position["vitesse"]= location.speed.toDouble()
-                        Log.d("Vitesse", location.speed.toString())
-                        Log.d("Latitude", location.latitude.toString())
-                        Log.d("Longitude", location.longitude.toString())
-                        parkingViewModel.postion.value = position
-                    }
-                }
+                mFusedLocationClient.requestLocationUpdates(
+                    locationRequest,
+                    locationCallback, Looper.getMainLooper()
+                )
             } else {
                 Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -147,17 +145,8 @@ class MainActivity : AppCompatActivity() {
             requestPermissions()
         }
     }
-
-    override fun onResume() {
-        handler.postDelayed(Runnable {
-            handler.postDelayed(runnable!!, delay.toLong())
-            getLastLocation()
-        }.also { runnable = it }, delay.toLong())
-        super.onResume()
-    }
-
     override fun onPause() {
-        handler.removeCallbacks(runnable!!);
+        mFusedLocationClient.removeLocationUpdates(locationCallback)
         super.onPause()
     }
 }
