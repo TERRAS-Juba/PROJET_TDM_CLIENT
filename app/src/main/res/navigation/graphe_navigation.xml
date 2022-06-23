@@ -21,6 +21,9 @@
             android:id="@+id/action_homeFragment_to_mesReservationFragment"
             app:destination="@id/mesReservationFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_homeFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsParkingFragment"
@@ -62,4 +65,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.tp3.MapFragment"
+        android:label="fragment_map2"
+        tools:layout="@layout/fragment_map2" />
 </navigation>

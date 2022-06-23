@@ -15,16 +15,34 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.ActivityMainBinding
+import com.example.tp3.databinding.FragmentMesReservationBinding
 import com.google.android.gms.location.*
 import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import java.util.ArrayList
 
-class MainActivity : AppCompatActivity() {
+private lateinit var mMap: GoogleMap
+val didouche= LatLng(36.7065938,3.0400831000000004);
+val sofia = LatLng(36.770493699999996,3.0423723999999996)
+val place= LatLng(36.7481885,3.0423723999999996)
+private var locationArrayList : ArrayList<LatLng>?=null
+
+
+
+class MainActivity : AppCompatActivity()   {
     lateinit var navController: NavController
     lateinit var parkingViewModel: ParkingViewModel
     lateinit var locationRequest:LocationRequest
@@ -35,6 +53,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest= LocationRequest.create().apply{
             interval = 10000 // Intervalle de mise à jour en millisecondes
@@ -86,9 +106,18 @@ class MainActivity : AppCompatActivity() {
                         findNavController(R.id.navHost)
                             .navigate(R.id.loginFragment)
                     } else {
+
                         findNavController(R.id.navHost)
                             .navigate(R.id.mesReservationFragment)
                     }
+                    true
+                }
+                R.id.mapFragment-> {
+
+
+                        findNavController(R.id.navHost)
+                            .navigate(R.id.mapFragment)
+
                     true
                 }
                 else -> false
@@ -149,4 +178,8 @@ class MainActivity : AppCompatActivity() {
         mFusedLocationClient.removeLocationUpdates(locationCallback)
         super.onPause()
     }
+
+
+
+
 }

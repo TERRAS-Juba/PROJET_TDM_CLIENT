@@ -9,28 +9,45 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.tp3.BDD.AppBD
 import com.example.tp3.Entites.Reservation
 import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.FragmentMesReservationBinding
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_mes_reservation.*
 import java.util.*
 
+
 class MesReservationFragment : Fragment() {
+
     lateinit var Binding: FragmentMesReservationBinding
     lateinit var utilisateurViewModel: UtilisateurViewModel
+
     override fun onCreateView(
+
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         // Inflate the layout for this fragment
         Binding = FragmentMesReservationBinding.inflate(inflater, container, false);
+
         return Binding.root;
+
+
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         utilisateurViewModel = ViewModelProvider(requireActivity()).get(UtilisateurViewModel::class.java)
         var utilisateur= utilisateurViewModel.utilisateurs.value?.get(0)
         val pr = requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)?.edit()
@@ -68,4 +85,5 @@ class MesReservationFragment : Fragment() {
         toast = Toast.makeText(context, text, duration)
         toast.show()
     }
+
 }
