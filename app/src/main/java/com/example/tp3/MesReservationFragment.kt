@@ -39,8 +39,8 @@ class MesReservationFragment : Fragment() {
         pr?.putString("password", utilisateur?.mot_de_passe)
         pr?.apply()
         val bd: AppBD? = AppBD.buildDatabase(requireContext())
-        //bd?.getReservationDao()?.insert(Reservation(date_reservation = Date(), heure_entree = System.currentTimeMillis(), heure_sortie = System.currentTimeMillis(), etat = "En cours", numero_place = 10,id_parking=1,id_utilisateur=1, id_paiement = 1, synchronise = false))
-        // bd?.getReservationDao()?.insert(Reservation(date_reservation = Date(), heure_entree = System.currentTimeMillis(), heure_sortie = System.currentTimeMillis(), etat = "En cours", numero_place = 22,id_parking=2,id_utilisateur=2, id_paiement = 2, synchronise = false))
+        //bd?.getReservationDao()?.insert(Reservation(date_reservation = Date(), heure_entree = System.currentTimeMillis().toDouble(), heure_sortie = System.currentTimeMillis().toDouble(), etat = true, numero_place = 1,id_parking=6,id_utilisateur=3, id_paiement = 12, synchronise = false))
+        //bd?.getReservationDao()?.insert(Reservation(date_reservation = Date(), heure_entree = System.currentTimeMillis().toDouble(), heure_sortie = System.currentTimeMillis().toDouble(), etat = false, numero_place = 2,id_parking=6,id_utilisateur=3, id_paiement = 12, synchronise = false))
         val reservations: List<Reservation> = bd?.getReservationDao()?.getReservations()!!
         var toast: Toast
         var text: String = "La liste de toutes les reservations \n"

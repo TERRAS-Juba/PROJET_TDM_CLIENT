@@ -27,6 +27,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.work.*
+import com.example.tp3.Services.ServiceReservation
 import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.ActivityMainBinding
 import com.google.android.gms.location.*
@@ -41,13 +43,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var location: Location
     var isConnected: Boolean = false
     lateinit var pref: SharedPreferences
-    lateinit var menuDecoonexion: Menu
     private lateinit var binding: ActivityMainBinding
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     lateinit var utilisateurViewModel: UtilisateurViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Service de localisation
         requestedOrientation = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest = LocationRequest.create().apply {
@@ -74,20 +76,26 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        getLastLocation()
+        //getLastLocation()
+        // Positionnement du button de deconnexion
         utilisateurViewModel = ViewModelProvider(this).get(UtilisateurViewModel::class.java)
         pref = getSharedPreferences("db_privee", Context.MODE_PRIVATE)
+        // ParkingViewModel
         parkingViewModel = ViewModelProvider(this).get(ParkingViewModel::class.java)
+        // Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        // Toolbar
         val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
+        // Graphe de navigation
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.navBottom, navController)
         isConnected = pref.getBoolean("connected", false)
+        // Nav bottom
         binding.navBottom.setOnNavigationItemSelectedListener { item ->
             isConnected = pref.getBoolean("connected", false)
             when (item.itemId) {
@@ -109,6 +117,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        // Service de synchronisation
+        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.UNMETERED).build()
+        val req = OneTimeWorkRequest.Builder(ServiceReservation::class.java).setConstraints(constraints).build()
+        val workManager = WorkManager.getInstance(this)
+        workManager.enqueueUniqueWork("work_reservation", ExistingWorkPolicy.REPLACE,req)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -212,4 +225,5 @@ class MainActivity : AppCompatActivity() {
         mFusedLocationClient.removeLocationUpdates(locationCallback)
         super.onPause()
     }
+
 }

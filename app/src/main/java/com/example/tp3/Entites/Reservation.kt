@@ -8,9 +8,9 @@ import java.sql.Timestamp
 @Entity
 data class Reservation (
     var date_reservation:Date,
-    var heure_entree:Long,
-    var heure_sortie:Long,
-    var etat:String,
+    var heure_entree:Double,
+    var heure_sortie:Double,
+    var etat:Boolean,
     var numero_place:Int,
     var id_parking:Int,
     val id_utilisateur:Int,
