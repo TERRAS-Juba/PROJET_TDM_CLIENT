@@ -19,6 +19,7 @@
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/activity_main2.xml" value="0.25815217391304346" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/card_parking.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/custom_app_bar.xml" value="0.2418478260869565" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_connexion.xml" value="0.2427536231884058" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_details_parking.xml" value="0.43983402489626555" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
@@ -27,7 +28,9 @@
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_mes_reservation.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_register.xml" value="0.3333333333333333" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/layout/fragment_test.xml" value="0.2427536231884058" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/menu/app_bar.xml" value="0.26875" />
         <entry key="..\:/AndroidProjects/TP3/app/src/main/res/menu/bottom_menu.xml" value="0.26875" />
+        <entry key="..\:/AndroidProjects/TP3/app/src/main/res/menu/custom_app_bar.xml" value="0.1" />
         <entry key="..\:/Users/DELL/OneDrive/Bureau/PROKET_TDM_CLIENT/app/src/main/res/layout/fragment_register.xml" value="0.1796875" />
       </map>
     </option>

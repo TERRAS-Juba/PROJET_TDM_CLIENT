@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Binding = FragmentHomeBinding.inflate(inflater, container, false);
-        return Binding.getRoot();
+        return Binding.root;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,15 +1,14 @@
 package com.example.tp3
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import android.widget.Toolbar
+import androidx.appcompat.view.menu.MenuView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -89,6 +88,8 @@ class LoginFragment : Fragment() {
                     toast = Toast.makeText(context, text, duration)
                     toast.show()
                 } else if (utilisateurs != null && utilisateurs.isNotEmpty()) {
+                    val itemMenu: MenuItem = utilisateurViewModel.menu!!.findItem(R.id.btnLogout)
+                    itemMenu.isVisible = true
                     activity?.findNavController(R.id.navHost)
                         ?.navigate(R.id.action_loginFragment_to_mesReservationFragment2)
                 }

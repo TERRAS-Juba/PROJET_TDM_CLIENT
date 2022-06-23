@@ -1,5 +1,6 @@
 package com.example.tp3.ViewModels
 
+import android.view.Menu
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,7 @@ class UtilisateurViewModel : ViewModel() {
     var loading = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
     val registerStatus=MutableLiveData<Boolean>()
+    var menu: Menu? =null
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         CoroutineScope(Dispatchers.Main).launch {
             onError(throwable.localizedMessage.toString())
