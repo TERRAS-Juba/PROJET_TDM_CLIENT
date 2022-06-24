@@ -49,15 +49,41 @@ class MesReservationFragment : Fragment() {
             email = pref.getString("email", "")!!
         )
         val bd: AppBD? = AppBD.buildDatabase(requireContext())
-        //bd?.getReservationDao()?.insert(Reservation(date_reservation = Date(), heure_entree = System.currentTimeMillis().toDouble(), heure_sortie = System.currentTimeMillis().toDouble(), etat = true, numero_place = 1,id_parking=6,id_utilisateur=3, id_paiement = 12, synchronise = false))
-        //bd?.getReservationDao()?.insert(Reservation(date_reservation = Date(), heure_entree = System.currentTimeMillis().toDouble(), heure_sortie = System.currentTimeMillis().toDouble(), etat = false, numero_place = 2,id_parking=6,id_utilisateur=3, id_paiement = 12, synchronise = false))
+        /*bd?.getReservationDao()?.insert(
+            Reservation(
+                date_reservation = Date(System.currentTimeMillis()+86400000),
+                heure_entree = System.currentTimeMillis().toDouble(),
+                heure_sortie = System.currentTimeMillis().toDouble(),
+                etat = true,
+                numero_place = 1,
+                id_parking = 6,
+                id_utilisateur = 3,
+                id_paiement = 12,
+                synchronise = false
+            )
+        )
+        bd?.getReservationDao()?.insert(
+            Reservation(
+                date_reservation = Date(System.currentTimeMillis()+86400000),
+                heure_entree = System.currentTimeMillis().toDouble(),
+                heure_sortie = System.currentTimeMillis().toDouble(),
+                etat = false,
+                numero_place = 2,
+                id_parking = 3,
+                id_utilisateur = 3,
+                id_paiement = 12,
+                synchronise = false
+            )
+        )*/
         //bd?.getEvaluationDao()?.insert(Evaluation(note = 1, commentaire = "Parking dans un etat catastrophique", id_utilisateur = 3, id_parking = 6,synchronise = false))
         //bd?.getEvaluationDao()?.insert(Evaluation(note = 5, commentaire = "Parking tres moderne", id_utilisateur = 3, id_parking = 1,synchronise = false))
         val reservations: List<Reservation>? =
             bd?.getReservationDao()?.getReservationsUtilisateur(utilisateur.id_utilisateur)
+        val reservationsEnCours: MutableList<Reservation> = mutableListOf()
         if (reservations != null) {
             for (item in reservations) {
                 if ((item.heure_sortie > System.currentTimeMillis() && item.date_reservation == Date()) || (item.date_reservation > Date())) {
+                    reservationsEnCours.add(item)
                 }
             }
         }
@@ -66,12 +92,12 @@ class MesReservationFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         adapter = ReservationAdapter(requireActivity())
         recyclerView.adapter = adapter
-        parkingViewModel=ViewModelProvider(requireActivity()).get(ParkingViewModel::class.java)
-        if(parkingViewModel.parkings.value!=null){
+        parkingViewModel = ViewModelProvider(requireActivity()).get(ParkingViewModel::class.java)
+        if (parkingViewModel.parkings.value != null) {
             adapter.setParkings(parkingViewModel.parkings.value!!)
         }
         if (reservations != null) {
-            adapter.setReservation(reservations)
+            adapter.setReservation(reservationsEnCours)
         }
 
     }
