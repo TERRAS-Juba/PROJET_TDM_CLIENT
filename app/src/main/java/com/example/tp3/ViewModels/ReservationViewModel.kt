@@ -9,6 +9,7 @@ import com.example.tp3.Retrofit.UtilisateurEndpoint
 import kotlinx.coroutines.*
 import retrofit2.http.Body
 import retrofit2.http.FieldMap
+import retrofit2.http.Path
 
 class ReservationViewModel {
     var reservation = MutableLiveData<List<Reservation>>()
@@ -19,21 +20,18 @@ class ReservationViewModel {
             onError(throwable.localizedMessage.toString())
         }
     }
-    fun ajouterReservation(@Body data: List<Reservation>):Boolean {
+    fun ajouterReservation(@Body data: List<Reservation>) {
         loading.value = true
-        var succes:Boolean=false
             CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-                val response = ReservationEndpoint.createInstance().ajouterReservation(data)
+                val response = ReservationEndpoint.createInstance().addReservation(data)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         loading.value = false
-                        succes=true
                     } else {
                         onError(response.message())
                     }
                 }
             }
-        return succes
     }
     private fun onError(message: String) {
         errorMessage.postValue( message)

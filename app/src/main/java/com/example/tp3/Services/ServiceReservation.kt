@@ -22,26 +22,26 @@ class ServiceReservation(val context: Context, val params: WorkerParameters) :
             }
         }
         val bd: AppBD? = AppBD.buildDatabase(context)
-        var succes: Boolean = false
         val reservations: List<Reservation> =
             bd?.getReservationDao()?.getReservationsNonSynchronise()!!
-
-        CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = ReservationEndpoint.createInstance().ajouterReservation(reservations)
+        var succes:Boolean=false
+        var request=CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+            val response = ReservationEndpoint.createInstance().addReservation(reservations)
             withContext(Dispatchers.Main) {
-                succes = if (response.isSuccessful) {
+               succes=if (response.isSuccessful) {
                     Log.d("hello world ", "Succes")
                     bd.getReservationDao().synchReservations()
-                    true
-                } else {
+                   true
+                }else{
                     false
-                }
+               }
             }
         }
-        if (succes) {
-            return Result.success()
-        } else {
-            return Result.failure()
+        request.join()
+        return if(succes){
+            Result.success()
+        }else{
+            Result.failure()
         }
     }
 }

@@ -28,6 +28,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.work.*
+import com.example.tp3.Services.ServiceEvaluation
 import com.example.tp3.Services.ServiceReservation
 import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.ActivityMainBinding
@@ -118,10 +119,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         // Service de synchronisation
-        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.UNMETERED).build()
-        val req = OneTimeWorkRequest.Builder(ServiceReservation::class.java).setConstraints(constraints).build()
-        val workManager = WorkManager.getInstance(this)
-        workManager.enqueueUniqueWork("work_reservation", ExistingWorkPolicy.REPLACE,req)
+        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        val req1 = OneTimeWorkRequest.Builder(ServiceReservation::class.java).setConstraints(constraints).build()
+        val req2 = OneTimeWorkRequest.Builder(ServiceEvaluation::class.java).setConstraints(constraints).build()
+        val workManager1 = WorkManager.getInstance(this)
+        workManager1.enqueueUniqueWork("work_reservation", ExistingWorkPolicy.APPEND,req1)
+        val workManager2 = WorkManager.getInstance(this)
+        workManager2.enqueueUniqueWork("work_evaluation", ExistingWorkPolicy.APPEND,req2)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
