@@ -1,5 +1,6 @@
 package com.example.tp3
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -90,6 +91,16 @@ class LoginFragment : Fragment() {
                 } else if (utilisateurs != null && utilisateurs.isNotEmpty()) {
                     val itemMenu: MenuItem = utilisateurViewModel.menu!!.findItem(R.id.btnLogout)
                     itemMenu.isVisible = true
+                    var utilisateur = utilisateurViewModel.utilisateurs.value?.get(0)
+                    val pr = requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)?.edit()
+                    pr?.putBoolean("connected", true)
+                    pr?.putString("email", utilisateur?.email)
+                    pr?.putString("id_utilisateur", utilisateur?.id_utilisateur.toString())
+                    pr?.putString("numero_telephone", utilisateur?.numero_telephone)
+                    pr?.putString("mot_de_passe", utilisateur?.mot_de_passe)
+                    pr?.putString("nom", utilisateur?.nom)
+                    pr?.putString("prenom", utilisateur?.prenom)
+                    pr?.apply()
                     activity?.findNavController(R.id.navHost)
                         ?.navigate(R.id.action_loginFragment_to_mesReservationFragment2)
                 }

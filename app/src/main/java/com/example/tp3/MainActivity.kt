@@ -152,7 +152,11 @@ class MainActivity : AppCompatActivity() {
                 val prefmodif = this.getSharedPreferences("db_privee", Context.MODE_PRIVATE)?.edit()
                 prefmodif?.putBoolean("connected", false)
                 prefmodif?.putString("email", "")
-                prefmodif?.putString("password", "")
+                prefmodif?.putString("mot_de_passe", "")
+                prefmodif?.putString("nom", "")
+                prefmodif?.putString("prenom", "")
+                prefmodif?.putString("id_utilisateur", "")
+                prefmodif?.putString("numero_telephone", "")
                 prefmodif?.apply()
                 isConnected = false
                 item.isVisible = isConnected

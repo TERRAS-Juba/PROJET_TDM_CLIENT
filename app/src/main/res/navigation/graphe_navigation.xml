@@ -37,6 +37,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_mesReservationFragment_to_detailsReservationFragment"
+            app:destination="@id/detailsReservationFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -62,4 +65,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailsReservationFragment"
+        android:name="com.example.tp3.DetailsReservationFragment"
+        android:label="fragment_details_reservation"
+        tools:layout="@layout/fragment_details_reservation" />
 </navigation>
