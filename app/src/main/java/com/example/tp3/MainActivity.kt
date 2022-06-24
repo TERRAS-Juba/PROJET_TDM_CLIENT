@@ -15,8 +15,6 @@ import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +32,15 @@ import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.ActivityMainBinding
 import com.google.android.gms.location.*
 import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
-import kotlin.properties.Delegates
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+
+private lateinit var mMap: GoogleMap
+val didouche = LatLng(36.7065938, 3.0400831000000004);
+val sofia = LatLng(36.770493699999996, 3.0423723999999996)
+val place = LatLng(36.7481885, 3.0423723999999996)
+private var locationArrayList: ArrayList<LatLng>? = null
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
@@ -110,22 +116,34 @@ class MainActivity : AppCompatActivity() {
                         findNavController(R.id.navHost)
                             .navigate(R.id.loginFragment)
                     } else {
+
                         findNavController(R.id.navHost)
                             .navigate(R.id.mesReservationFragment)
                     }
+                    true
+                }
+                R.id.mapFragment -> {
+                    findNavController(R.id.navHost)
+                        .navigate(R.id.mapFragment)
+
                     true
                 }
                 else -> false
             }
         }
         // Service de synchronisation
-        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-        val req1 = OneTimeWorkRequest.Builder(ServiceReservation::class.java).setConstraints(constraints).build()
-        val req2 = OneTimeWorkRequest.Builder(ServiceEvaluation::class.java).setConstraints(constraints).build()
+        val constraints =
+            Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        val req1 =
+            OneTimeWorkRequest.Builder(ServiceReservation::class.java).setConstraints(constraints)
+                .build()
+        val req2 =
+            OneTimeWorkRequest.Builder(ServiceEvaluation::class.java).setConstraints(constraints)
+                .build()
         val workManager1 = WorkManager.getInstance(this)
-        workManager1.enqueueUniqueWork("work_reservation", ExistingWorkPolicy.APPEND,req1)
+        workManager1.enqueueUniqueWork("work_reservation", ExistingWorkPolicy.APPEND, req1)
         val workManager2 = WorkManager.getInstance(this)
-        workManager2.enqueueUniqueWork("work_evaluation", ExistingWorkPolicy.APPEND,req2)
+        workManager2.enqueueUniqueWork("work_evaluation", ExistingWorkPolicy.APPEND, req2)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -233,5 +251,4 @@ class MainActivity : AppCompatActivity() {
         mFusedLocationClient.removeLocationUpdates(locationCallback)
         super.onPause()
     }
-
 }
