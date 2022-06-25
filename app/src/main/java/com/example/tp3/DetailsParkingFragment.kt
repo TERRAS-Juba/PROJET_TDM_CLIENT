@@ -1,5 +1,6 @@
 package com.example.tp3
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -11,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -36,6 +39,20 @@ class DetailsParkingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val position= arguments?.getInt("position")
+        val pref = requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)
+        val connected:Boolean=pref.getBoolean("connected", false)
+        Binding.buttonPaiement.setOnClickListener{
+            val bundle = bundleOf(
+                "position" to position,
+            )
+            view.findNavController()
+                .navigate(R.id.action_detailsParkingFragment_to_ajouterReservationFragment,bundle)
+        }
+        if(!connected){
+            Binding.buttonPaiement.visibility=View.INVISIBLE
+        }else{
+            Binding.buttonPaiement.visibility=View.VISIBLE
+        }
         val remplissageParking= arguments?.getString("remplissageParking")
         val dureeParking= arguments?.getString("dureeParking")
         val distanceParking=arguments?.getString("distanceParking")

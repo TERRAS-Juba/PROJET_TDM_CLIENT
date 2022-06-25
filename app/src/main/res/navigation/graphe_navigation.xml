@@ -29,7 +29,11 @@
         android:id="@+id/detailsParkingFragment"
         android:name="com.example.tp3.DetailsParkingFragment"
         android:label="fragment_details_parking"
-        tools:layout="@layout/fragment_details_parking" />
+        tools:layout="@layout/fragment_details_parking" >
+        <action
+            android:id="@+id/action_detailsParkingFragment_to_ajouterReservationFragment"
+            app:destination="@id/ajouterReservationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mesReservationFragment"
         android:name="com.example.tp3.MesReservationFragment"
@@ -43,6 +47,12 @@
         <action
             android:id="@+id/action_mesReservationFragment_to_detailsReservationFragment"
             app:destination="@id/detailsReservationFragment" />
+        <action
+            android:id="@+id/action_mesReservationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_mesReservationFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -78,5 +88,17 @@
         android:id="@+id/mapFragment"
         android:name="com.example.tp3.MapFragment"
         android:label="fragment_map2"
-        tools:layout="@layout/fragment_map2" />
+        tools:layout="@layout/fragment_map2" >
+        <action
+            android:id="@+id/action_mapFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_mesReservationFragment"
+            app:destination="@id/mesReservationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ajouterReservationFragment"
+        android:name="com.example.tp3.AjouterReservationFragment"
+        android:label="fragment_ajouter_reservation"
+        tools:layout="@layout/fragment_ajouter_reservation" />
 </navigation>

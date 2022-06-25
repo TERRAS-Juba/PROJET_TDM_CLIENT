@@ -33,7 +33,11 @@ class DetailsReservationFragment : Fragment() {
         val id_reservation= arguments?.getInt("id_reservation")
         val numero_place=arguments?.getInt("numero_place")
         val numero:TextView=view.findViewById(R.id.numeroPlaceReservation)
-        numero.text=("Numero de place : ").plus(numero_place)
+        if(numero_place==0){
+            numero.text=("Numero de place : ").plus("en attente")
+        }else{
+            numero.text=("Numero de place : ").plus(numero_place)
+        }
         val writer=QRCodeWriter()
         try {
             val bitMatrix=writer.encode(id_reservation.toString(),BarcodeFormat.QR_CODE,512,512)

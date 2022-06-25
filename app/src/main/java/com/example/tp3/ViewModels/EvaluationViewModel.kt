@@ -1,6 +1,7 @@
 package com.example.tp3.ViewModels
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.tp3.Entites.Evaluation
 import com.example.tp3.Entites.Reservation
 import com.example.tp3.Retrofit.EvaluationEndpoint
@@ -10,7 +11,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Path
 
-class EvaluationViewModel {
+class EvaluationViewModel : ViewModel(){
     var evaluations = MutableLiveData<List<Evaluation>>()
     var loading = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()

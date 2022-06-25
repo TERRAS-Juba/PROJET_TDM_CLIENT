@@ -252,7 +252,7 @@
                 android:layout_marginBottom="40sp"
                 android:backgroundTint="#FFA000"
                 android:fontFamily="@font/lato"
-                android:text="Paiement"
+                android:text="Effectuer reservation"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:cornerRadius="20sp"
