@@ -7,7 +7,7 @@ import com.example.tp3.DAO.ReservatioDao
 import com.example.tp3.Entites.Evaluation
 import com.example.tp3.Entites.Reservation
 
-@Database(entities = [Reservation::class,Evaluation::class], version = 12)
+@Database(entities = [Reservation::class,Evaluation::class], version = 13)
 @TypeConverters(DateConverter::class)
 abstract class AppBD :RoomDatabase(){
     abstract fun getReservationDao():ReservatioDao

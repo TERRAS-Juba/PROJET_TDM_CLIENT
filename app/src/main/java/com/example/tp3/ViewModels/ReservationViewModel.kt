@@ -16,7 +16,7 @@ import retrofit2.http.Path
 class ReservationViewModel : ViewModel(){
     var reservation = MutableLiveData<List<Reservation>>()
     var place=MutableLiveData<List<Place>>()
-    var nbPlaces=MutableLiveData<List<String>>()
+    var nbPlaces=MutableLiveData<List<Reservation>>()
     var loading = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
     val paye=MutableLiveData<Boolean>()

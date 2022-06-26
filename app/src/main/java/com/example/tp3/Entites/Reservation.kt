@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Reservation(
+    @PrimaryKey
+    var id_reservation:String,
     var date_reservation:Date,
     var heure_entree:Double,
     var heure_sortie:Double,
@@ -15,7 +17,4 @@ data class Reservation(
     val id_utilisateur:Int,
     var id_paiement: String,
     var synchronise:Boolean
-){
-    @PrimaryKey(autoGenerate = true)
-    var id_reservation:Int? = null
-}
+)

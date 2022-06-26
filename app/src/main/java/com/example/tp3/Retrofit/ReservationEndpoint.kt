@@ -15,7 +15,7 @@ interface ReservationEndpoint {
     suspend fun getPlaceLibre(@Path("id") id: Int?):Response<List<Place>>
     @FormUrlEncoded
     @POST("/reservation/nombre_reservations/")
-    suspend fun getNombrePlacesOccupees(@FieldMap data: Map<String, String>):Response<List<String>>
+    suspend fun getNombrePlacesOccupees(@FieldMap data: Map<String, String>):Response<List<Reservation>>
     @FormUrlEncoded
     @POST("/paiement/ajouter_paiement/")
     suspend fun addPaiement(@FieldMap data: Map<String, String>):Response<Void>

@@ -1,6 +1,5 @@
 package com.example.tp3
 
-import android.R.attr.bitmap
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -14,7 +13,6 @@ import com.example.tp3.databinding.FragmentDetailsReservationBinding
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
-import com.google.zxing.qrcode.encoder.QRCode
 
 
 class DetailsReservationFragment : Fragment() {
@@ -30,9 +28,11 @@ class DetailsReservationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id_reservation= arguments?.getInt("id_reservation")
+        val id_reservation= arguments?.getString("id_reservation")
         val numero_place=arguments?.getInt("numero_place")
         val numero:TextView=view.findViewById(R.id.numeroPlaceReservation)
+        val id:TextView=view.findViewById(R.id.idReservation)
+        id.text=id_reservation
         if(numero_place==0){
             numero.text=("Numero de place : ").plus("en attente")
         }else{

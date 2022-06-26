@@ -81,7 +81,7 @@ class AjouterReservationFragment : Fragment() {
             cal.set(Calendar.MINUTE, timePickerSortie.minute)
             val heureSortieInMiliSecondes = cal.timeInMillis
             val pref = requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)
-            reservation = Reservation(
+            reservation = Reservation(id_reservation="",
                 date_reservation = Date(dateInMiliSecondes),
                 heure_entree = heureEntreeInMiliSecondes.toDouble(),
                 heure_sortie = heureSortieInMiliSecondes.toDouble(),
@@ -150,6 +150,25 @@ class AjouterReservationFragment : Fragment() {
         reservationViewModel.paye.observe(viewLifecycleOwner, Observer { paye ->
             if (paye != null) {
                 if (paye == true) {
+                    var placesOccupees=reservationViewModel.nbPlaces.value
+                    if (placesOccupees != null) {
+                        Log.d("La taille de la liste",placesOccupees.size.toString())
+                        if(placesOccupees.isEmpty()){
+                            reservation.numero_place=1
+                        }else{
+                            var places= mutableListOf<Int>()
+                            for(item in placesOccupees){
+                                places.add(item.numero_place!!)
+                            }
+                            for(i in 1..parkingReservation.capacite){
+                                if(!places.contains(i)){
+                                    reservation.numero_place=i
+                                    break
+                                }
+                            }
+                        }
+                    }
+                    reservation.id_reservation="Res-".plus(paiementMap["id_paiement"].toString())
                     reservation.id_paiement = paiementMap["id_paiement"].toString()
                     listeReservation.add(reservation)
                     reservationViewModel.ajouterReservation(listeReservation)
@@ -173,7 +192,8 @@ class AjouterReservationFragment : Fragment() {
                 if (effectue == true) {
                     val builder = AlertDialog.Builder(requireActivity())
                     builder.setTitle("Statut de reservation")
-                    builder.setMessage("Votre reservation a été effectuée avec succés")
+                    builder.setMessage("Votre reservation a été effectuée avec succés\nNumero de reservation : ${reservation.id_reservation}\n" +
+                            "Numero de place : ${reservation.numero_place}\n")
                     builder.setIcon(android.R.drawable.ic_dialog_info)
                     builder.setNeutralButton("Ok") { dialogInterface, which ->
                     }
