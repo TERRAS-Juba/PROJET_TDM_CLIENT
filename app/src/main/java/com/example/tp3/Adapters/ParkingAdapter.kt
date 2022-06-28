@@ -63,7 +63,7 @@ class ParkingAdapter(var context: FragmentActivity) :
                 holder.etatParking.text = "Ouvert"
                 holder.etatParking.setTextColor(Color.parseColor("#008000"))
             }
-            holder.remplissageParking.text = "15 %"
+            holder.remplissageParking.text =(((parking.capacite-parking.nb_places_libres)*100)/parking.capacite).toString().plus(" %")
             holder.communeParking.text = parking.commune
             //===================================================================
             val pos1 = LatLng(parking.latitude, parking.longitude)
@@ -82,6 +82,7 @@ class ParkingAdapter(var context: FragmentActivity) :
                 holder.distanceParking.text = String.format("%.2f", distance / 1000).plus(" Km")
                 holder.distanceParking.setTextColor(Color.parseColor("#4287f5"))
             }
+
             //===================================================================
             Glide.with(context).load(parking.photo)
                 .apply(RequestOptions().error(R.drawable.ic_baseline_error_outline_24))

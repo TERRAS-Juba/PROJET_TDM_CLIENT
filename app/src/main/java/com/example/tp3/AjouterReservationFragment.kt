@@ -90,7 +90,7 @@ class AjouterReservationFragment : Fragment() {
                 id_parking = parkingReservation.id_parking,
                 id_utilisateur = pref.getString("id_utilisateur", "")!!.toInt(),
                 id_paiement = "",
-                synchronise = false
+                synchronise = true
             )
             reservatinMap["date_reservation"] =
                 dateFormat.format(Date(dateInMiliSecondes)).toString()
