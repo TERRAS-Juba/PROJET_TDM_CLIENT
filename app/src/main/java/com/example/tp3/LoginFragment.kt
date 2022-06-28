@@ -1,24 +1,38 @@
 package com.example.tp3
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import android.widget.Toolbar
-import androidx.appcompat.view.menu.MenuView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.FragmentLoginBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+
+
+
 
 class LoginFragment : Fragment() {
     lateinit var utilisateurViewModel: UtilisateurViewModel
     lateinit var Binding: FragmentLoginBinding
+    lateinit var gso:GoogleSignInOptions
+    lateinit var gsc:GoogleSignInClient
+    var payload: HashMap<String, String> = HashMap<String, String>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +44,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        gso=GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        gsc=GoogleSignIn.getClient(requireActivity(),gso)
         Binding.progressBarLogin.visibility = View.GONE
         utilisateurViewModel =
             ViewModelProvider(requireActivity()).get(UtilisateurViewModel::class.java)
@@ -43,15 +59,14 @@ class LoginFragment : Fragment() {
             if (isValid()) {
                 val input = Binding.email.text.toString()
                 val passwordUser = Binding.mdp.text.toString()
-                var data: HashMap<String, String> = HashMap<String, String>()
                 if (android.util.Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
-                    data["email"] = input;
-                    data["mot_de_passe"] = passwordUser;
-                    utilisateurViewModel.connexionUtilisateurEmail(data)
+                    payload["email"] = input;
+                    payload["mot_de_passe"] = passwordUser;
+                    utilisateurViewModel.connexionUtilisateurEmail(payload)
                 } else if (android.util.Patterns.PHONE.matcher(input).matches()) {
-                    data["numero_telephone"] = input;
-                    data["mot_de_passe"] = passwordUser;
-                    utilisateurViewModel.connexionUtilisateurNumeroTelephone(data)
+                    payload["numero_telephone"] = input;
+                    payload["mot_de_passe"] = passwordUser;
+                    utilisateurViewModel.connexionUtilisateurNumeroTelephone(payload)
                 } else {
                     Toast.makeText(
                         requireActivity(),
@@ -60,6 +75,10 @@ class LoginFragment : Fragment() {
                     ).show()
                 }
             }
+        }
+        Binding.googleIcon.setOnClickListener{
+            gsc.signOut()
+            signIn()
         }
         utilisateurViewModel.loading.observe(viewLifecycleOwner, Observer { loading ->
             if (!loading) {
@@ -88,6 +107,7 @@ class LoginFragment : Fragment() {
                     text = "Email ou mot de passe incorrect"
                     toast = Toast.makeText(context, text, duration)
                     toast.show()
+                    utilisateurViewModel.utilisateurs.value=null
                 } else if (utilisateurs != null && utilisateurs.isNotEmpty()) {
                     val itemMenu: MenuItem = utilisateurViewModel.menu!!.findItem(R.id.btnLogout)
                     itemMenu.isVisible = true
@@ -174,4 +194,53 @@ class LoginFragment : Fragment() {
         Binding.email.addTextChangedListener(textFieldValidation(Binding.email))
         Binding.mdp.addTextChangedListener(textFieldValidation(Binding.mdp))
     }
+        private fun signIn() {
+            val intent = gsc.signInIntent
+            startActivityForResult(intent, 1)
+        }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            val task =
+                GoogleSignIn.getSignedInAccountFromIntent(data)
+                handleSignInResult(task);
+        }
+    }
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            // Signed in successfully, show authenticated UI.
+            var email:String=""
+            if (account != null) {
+                if(account.email!=null){
+                    email= account.email!!
+                }
+            }
+            if (account != null) {
+                payload["email"]=email
+                utilisateurViewModel.connexionUtilisateurEmailWithoutPassword(payload)
+            }
+        } catch (e: ApiException) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            e.printStackTrace()
+        }
+    }
 }
+/*
+ val task =
+                GoogleSignIn.getSignedInAccountFromIntent(data)
+            val account :GoogleSignInAccount? = task.getResult(ApiException::class.java)
+            var email:String=""
+            if (account != null) {
+                if(account.email!=null){
+                    email= account.email!!
+                }
+            }
+            try {
+                if (account != null) {
+                    payload["email"]=email
+                }
+                utilisateurViewModel.connexionUtilisateurNumeroTelephone(payload)
+ */

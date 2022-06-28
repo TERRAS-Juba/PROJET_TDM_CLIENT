@@ -36,6 +36,22 @@ class UtilisateurViewModel : ViewModel() {
             }
         }
     }
+    fun connexionUtilisateurEmailWithoutPassword(@FieldMap data: Map<String, String>) {
+        loading.value = true
+        if (utilisateurs.value == null || utilisateurs.value!!.isEmpty()) {
+            CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+                val response = UtilisateurEndpoint.createInstance().connexionUtilisateurEmailWithoutPassword(data)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful && response.body() != null) {
+                        loading.value = false
+                        utilisateurs.postValue(response.body())
+                    } else {
+                        onError(response.message())
+                    }
+                }
+            }
+        }
+    }
     fun connexionUtilisateurNumeroTelephone(@FieldMap data: Map<String, String>) {
         loading.value = true
         if (utilisateurs.value == null || utilisateurs.value!!.isEmpty()) {

@@ -14,6 +14,9 @@ interface UtilisateurEndpoint {
     @POST("/utilisateur/connexion_utilisateur_email/")
     suspend fun connexionUtilisateurEmail(@FieldMap data:Map<String,String>): Response<List<Utilisateur>>
     @FormUrlEncoded
+    @POST("/utilisateur/get_utilisateur_email/")
+    suspend fun connexionUtilisateurEmailWithoutPassword(@FieldMap data:Map<String,String>): Response<List<Utilisateur>>
+    @FormUrlEncoded
     @POST("/utilisateur/connexion_utilisateur_numero_telephone/")
     suspend fun connexionUtilisateurNumeroTelephone(@FieldMap data:Map<String,String>): Response<List<Utilisateur>>
     @FormUrlEncoded

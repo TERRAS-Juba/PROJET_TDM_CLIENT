@@ -31,6 +31,9 @@ import com.example.tp3.Services.ServiceEvaluation
 import com.example.tp3.Services.ServiceReservation
 import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.ActivityMainBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.location.*
 import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.maps.GoogleMap
@@ -57,8 +60,13 @@ class MainActivity : AppCompatActivity() {
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     lateinit var utilisateurViewModel: UtilisateurViewModel
+    lateinit var gso:GoogleSignInOptions
+    lateinit var gsc: GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Google authentification
+        gso=GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+        gsc=GoogleSignIn.getClient(this,gso)
         //Service de localisation
         requestedOrientation = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -183,6 +191,7 @@ class MainActivity : AppCompatActivity() {
                 isConnected = false
                 item.isVisible = isConnected
                 utilisateurViewModel.utilisateurs.value = null
+                gsc.signOut()
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Status de connexion")
                 builder.setMessage("Deconnexion effectuée avec succés")
