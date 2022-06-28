@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -34,6 +35,8 @@ import com.google.android.gms.location.*
 import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 private lateinit var mMap: GoogleMap
 val didouche = LatLng(36.7065938, 3.0400831000000004);
@@ -84,6 +87,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         //getLastLocation()
+
         // Positionnement du button de deconnexion
         utilisateurViewModel = ViewModelProvider(this).get(UtilisateurViewModel::class.java)
         pref = getSharedPreferences("db_privee", Context.MODE_PRIVATE)

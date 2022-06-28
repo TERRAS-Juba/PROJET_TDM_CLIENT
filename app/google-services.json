@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "372809924228",
+    "project_id": "projet-tdm-eaf20",
+    "storage_bucket": "projet-tdm-eaf20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372809924228:android:48919187238b6f22974cd1",
+        "android_client_info": {
+          "package_name": "com.example.tp3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372809924228-jjrjd0bksqn9i7anre1lnn1r81al2c4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDWzUqxAcdHxTH6jUa_RcbGHjzT0GekWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372809924228-jjrjd0bksqn9i7anre1lnn1r81al2c4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

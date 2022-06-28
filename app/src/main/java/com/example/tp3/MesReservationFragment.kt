@@ -47,18 +47,10 @@ class MesReservationFragment : Fragment() {
         utilisateurViewModel =
             ViewModelProvider(requireActivity()).get(UtilisateurViewModel::class.java)
         val pref = requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)
-        val utilisateur: Utilisateur = Utilisateur(
-            id_utilisateur = pref.getString("id_utilisateur", "")!!
-                .toInt(),
-            numero_telephone = pref.getString("numero_telephone", "")!!,
-            nom = pref.getString("nom", "")!!,
-            prenom = pref.getString("prenom", "")!!,
-            mot_de_passe = pref.getString("id_utilisateur", "")!!,
-            email = pref.getString("email", "")!!
-        )
+        val id_utilisateur = pref.getString("id_utilisateur", "")!!.toInt()
         val bd: AppBD? = AppBD.buildDatabase(requireContext())
         val reservations: List<Reservation>? =
-            bd?.getReservationDao()?.getReservationsUtilisateur(utilisateur.id_utilisateur)
+            bd?.getReservationDao()?.getReservationsUtilisateur(id_utilisateur)
         val reservationsEnCours: MutableList<Reservation> = mutableListOf()
         if (reservations != null) {
             for (item in reservations) {

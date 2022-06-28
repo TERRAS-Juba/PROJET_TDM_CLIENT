@@ -6,5 +6,6 @@ data class Utilisateur (
     var numero_telephone:String,
     var nom:String,
     var prenom:String,
-    var mot_de_passe:String
+    var mot_de_passe:String,
+    var device_token:String
 )

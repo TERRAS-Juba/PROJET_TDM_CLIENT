@@ -28,6 +28,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         parkingViewModel = ViewModelProvider(requireActivity()).get(ParkingViewModel::class.java)
         parkingViewModel.errorMessage.value = null
         val layoutManager = LinearLayoutManager(requireActivity())
