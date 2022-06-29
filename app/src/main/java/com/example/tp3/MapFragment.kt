@@ -52,9 +52,8 @@ class MapFragment : Fragment() {
                 if (Parkings[i].nom.isNotEmpty()) {
                     val marker = LatLng(Parkings[i].latitude, Parkings[i].longitude)
                     mMap.addMarker(MarkerOptions().position(marker).title(Parkings[i].nom))
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(23f))
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(12.0f))
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
-
                 }
 
             }
