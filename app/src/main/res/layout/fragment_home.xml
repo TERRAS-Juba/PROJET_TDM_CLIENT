@@ -7,15 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment" >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleParking"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ProgressBar
         android:id="@+id/progressBarHome"
         style="?android:attr/progressBarStyle"
@@ -25,4 +16,105 @@
         app:layout_constraintEnd_toEndOf="@+id/recycleParking"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleParking"
+        android:layout_width="409dp"
+        android:layout_height="510dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recherche" />
+
+    <LinearLayout
+        android:id="@+id/recherche"
+        android:layout_width="356dp"
+        android:layout_height="184dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="@+id/recycleParking"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:backgroundTint="#FF9800"
+                android:text="Avancée"
+                android:textColorHighlight="#A4FF9800"
+                android:textColorLink="#FF9800"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:checked="false" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/btnsearch"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Search"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:drawableEnd="@drawable/quantum_ic_clear_grey600_24"
+            android:hint="Search Location"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <LinearLayout
+            android:id="@+id/recherche_avancee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_search2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:hint="Distance Maximale"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/et_search3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:hint="Prix Maximal "
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

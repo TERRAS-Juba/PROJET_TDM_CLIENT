@@ -18,10 +18,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBzQP3rVoq5Lmzx3DcrcDuLyftx5gHPSL8" />
         <activity
-            android:name=".MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
-        <activity
+            android:windowSoftInputMode="adjustNothing"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
