@@ -94,8 +94,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        //getLastLocation()
-
+        getLastLocation()
         // Positionnement du button de deconnexion
         utilisateurViewModel = ViewModelProvider(this).get(UtilisateurViewModel::class.java)
         pref = getSharedPreferences("db_privee", Context.MODE_PRIVATE)

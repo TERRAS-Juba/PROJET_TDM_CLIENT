@@ -108,25 +108,15 @@ class DetailsParkingFragment : Fragment() {
             }
         }
         Binding.buttonNoter.setOnClickListener {
-            val bd: AppBD? = AppBD.buildDatabase(requireContext())
-            var evaluation:Evaluation
             val parking= parkingViewModel.parkings.value!![position!!]
-            evaluation= Evaluation(
-                note = 4,
-                commentaire = "Parking catastrophique",
-                id_utilisateur = pref.getString("id_utilisateur", "")!!.toInt(),
-                id_parking = parking.id_parking,
-                synchronise = false
+            val bundle = bundleOf(
+                "position" to position,
+                "image_parking" to parking.photo,
+                "nom_parking" to parking.nom,
+                "id_utilisateur" to  pref.getString("id_utilisateur", "")!!.toInt(),
             )
-            bd?.getEvaluationDao()?.insert(evaluation)
-            // Service de synchronisation
-            val myConstraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED) //checks whether device should have Network Connectionthe work request
-                .build()
-            val yourWorkRequest = OneTimeWorkRequestBuilder<ServiceEvaluation>()
-                .setConstraints(myConstraints)
-                .build()
-            WorkManager.getInstance(requireActivity()).enqueue(yourWorkRequest)
+            view.findNavController()
+                .navigate(R.id.action_detailsParkingFragment_to_commentaireFragment,bundle)
         }
     }
 

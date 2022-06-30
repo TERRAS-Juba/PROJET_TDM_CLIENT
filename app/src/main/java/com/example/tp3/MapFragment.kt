@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -24,6 +25,7 @@ lateinit var parkingViewModel: ParkingViewModel
 class MapFragment : Fragment() {
     private lateinit var mMap: GoogleMap
     private var mapReady = false
+    lateinit var parkingViewModel: ParkingViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +40,7 @@ class MapFragment : Fragment() {
         }
         return rootView
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity.let {
@@ -45,6 +48,7 @@ class MapFragment : Fragment() {
                 ViewModelProvider(requireActivity()).get(ParkingViewModel::class.java)
         }
     }
+
     private fun updateMap() {
         var Parkings = parkingViewModel.parkings.value
         if (mapReady && Parkings != null) {
@@ -52,13 +56,28 @@ class MapFragment : Fragment() {
                 if (Parkings[i].nom.isNotEmpty()) {
                     val marker = LatLng(Parkings[i].latitude, Parkings[i].longitude)
                     mMap.addMarker(MarkerOptions().position(marker).title(Parkings[i].nom))
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(12.0f))
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker,14f))
                 }
-
+            }
+            if (parkingViewModel.postion.value != null) {
+                val latitude = parkingViewModel.postion.value!!["latitude"]
+                val longitude = parkingViewModel.postion.value!!["longitude"]
+                if (latitude != null && longitude != null) {
+                    mMap.addMarker(
+                        MarkerOptions().position(LatLng(latitude, longitude)).title("Ma position")
+                    )
+                        ?.setIcon(
+                            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
+                        )
+                    mMap.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(latitude, longitude),
+                            14f
+                        )
+                    )
+                }
             }
         }
-
 
     }
 }

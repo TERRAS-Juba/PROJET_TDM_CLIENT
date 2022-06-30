@@ -140,9 +140,10 @@ class HomeFragment : Fragment() {
                                 val pos2 = LatLng(Parkings[i].latitude, Parkings[i].longitude)
                                 var distance =
                                     SphericalUtil.computeDistanceBetween(pos1, pos2) / 1000;
+                                Log.d("distance",distance.toString())
                                 if (distance <= 1) {
-
                                     listParkingFiltre.add(Parkings[i])
+
 
                                 }
                             }

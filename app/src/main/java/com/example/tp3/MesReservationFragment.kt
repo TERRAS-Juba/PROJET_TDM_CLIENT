@@ -54,7 +54,9 @@ class MesReservationFragment : Fragment() {
         val reservationsEnCours: MutableList<Reservation> = mutableListOf()
         if (reservations != null) {
             for (item in reservations) {
-                if ((item.heure_sortie > System.currentTimeMillis() && item.date_reservation == Date()) || (item.date_reservation > Date())) {
+                Log.d("Date de reservation",item.date_reservation.date.toString() )
+                Log.d("Date actuelle",Date().date.toString() )
+                if ((item.heure_sortie > System.currentTimeMillis() && item.date_reservation.year == Date().year && item.date_reservation.month == Date().month && item.date_reservation.date == Date().date) || (item.date_reservation > Date())) {
                     reservationsEnCours.add(item)
                 }
             }

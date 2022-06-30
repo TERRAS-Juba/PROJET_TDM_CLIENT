@@ -1,6 +1,7 @@
 package com.example.tp3.Adapters
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.tp3.Entites.Reservation
 import com.example.tp3.R
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.time.Duration.Companion.hours
 
 class ReservationAdapter(var context: FragmentActivity) :
     RecyclerView.Adapter<ReservationAdapter.ReservationHolder>() {
@@ -44,7 +46,7 @@ class ReservationAdapter(var context: FragmentActivity) :
     }
     private fun bind(holder: ReservationAdapter.ReservationHolder, reservation: Reservation) {
         var parking: Parking? =null
-        val simpleDateFormat = SimpleDateFormat("hh:mm:ss")
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.FRANCE)
         val dateFormat = SimpleDateFormat("yyyy.MM.dd")
         holder.apply {
             for(item in dataparkings){
@@ -62,8 +64,8 @@ class ReservationAdapter(var context: FragmentActivity) :
                 holder.communeParkingReservation.text= "Impossible de se connecter a internet"
                 holder.tarifParkingReservation.text="Impossible de se connecter a internet"
             }
-            holder.heureEntreeReservation.text="Heure entree: ".plus(simpleDateFormat.format(Date(reservation.heure_entree.toLong())))
-            holder.heureSortieReservation.text="Heure sortie: ".plus(simpleDateFormat.format(Date(reservation.heure_sortie.toLong())))
+                holder.heureEntreeReservation.text="Heure entree: ".plus(simpleDateFormat.format(Date(reservation.heure_entree.toLong())))
+                holder.heureSortieReservation.text="Heure sortie: ".plus(simpleDateFormat.format(Date(reservation.heure_sortie.toLong())))
             holder.dateReservation.text="Date reservation: ".plus(dateFormat.format(reservation.date_reservation))
             holder.etatReservation.text="en cours"
             holder.etatReservation.setTextColor(Color.parseColor("#008000"))

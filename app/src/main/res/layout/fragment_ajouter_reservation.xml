@@ -90,15 +90,17 @@
 
     <TimePicker
         android:id="@+id/heureSortieFormulaire"
-        android:layout_width="261dp"
-        android:layout_height="127dp"
+        android:layout_width="272dp"
+        android:layout_height="117dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#FBFBFB"
         android:drawableStart="@drawable/ic_baseline_access_time_24"
         android:drawablePadding="6dp"
-        android:hint="Heure entree"
+        android:hint="Heure sortie"
         android:inputType="time"
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 

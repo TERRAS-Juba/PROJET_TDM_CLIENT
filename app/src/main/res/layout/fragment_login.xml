@@ -7,10 +7,21 @@
     tools:context=".LoginFragment"
     android:id="@+id/frameLayout2" >
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="402dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/view"
-        android:layout_width="143dp"
-        android:layout_height="440dp"
+        android:layout_width="176dp"
+        android:layout_height="431dp"
         android:background="@drawable/ic_login_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +52,7 @@
             android:backgroundTint="#5CECB537"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="REGISTER"
+            android:text="S'INSCRIRE"
             android:textSize="18sp"
             android:textStyle="bold"></Button>
 
@@ -50,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="LOGIN"
+            android:text="SE CONNECTER"
             android:textColor="#CB8E00"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -113,7 +124,7 @@
                     android:backgroundTint="#FFF8F8"
                     android:drawableStart="@drawable/ic_lock"
                     android:drawablePadding="6dp"
-                    android:hint="Password"
+                    android:hint="Mot de passe"
                     android:inputType="textPassword"
                     android:paddingStart="6dp"
                     android:paddingEnd="6dp" />
@@ -128,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="108dp"
         android:backgroundTint="@color/yellow"
-        android:text="Login"
+        android:text="CONNEXION"
         android:textColor="#737272"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -151,22 +162,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.733" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="65dp">
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <ImageView
         android:id="@+id/google_icon"
         android:layout_width="64dp"
         android:layout_height="47dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/google_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 

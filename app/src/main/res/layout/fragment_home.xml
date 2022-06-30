@@ -66,7 +66,7 @@
                 android:id="@+id/btnsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Search"
+                android:text="Recherche"
                 android:textColor="#FFFFFF" />
 
         </LinearLayout>
@@ -77,9 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:autofillHints=""
-            android:drawableEnd="@drawable/quantum_ic_clear_grey600_24"
             android:hint="Search Location"
-            android:inputType="textPersonName"
+            android:inputType="textAutoCorrect|textPersonName|textAutoComplete"
             android:paddingStart="10dp"
             android:textColor="@color/black"
             android:visibility="visible"
@@ -98,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Distance Maximale"
+                android:hint="Distance max(Km)"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black"
                 android:visibility="invisible" />
@@ -109,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:hint="Prix Maximal "
+                android:hint="Prix Maximal (DZD)"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black"
                 android:visibility="invisible" />

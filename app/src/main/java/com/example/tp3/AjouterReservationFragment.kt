@@ -17,6 +17,7 @@ import com.example.tp3.ViewModels.ReservationViewModel
 import com.example.tp3.ViewModels.UtilisateurViewModel
 import com.example.tp3.databinding.FragmentAjouterReservationBinding
 import java.text.SimpleDateFormat
+import java.time.Duration
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -27,12 +28,17 @@ class AjouterReservationFragment : Fragment() {
     lateinit var utilisateurViewModel: UtilisateurViewModel
     var dialog: AlertDialog? = null
     lateinit var parkingReservation: Parking
-    var cal = Calendar.getInstance()
+    var cal1 = Calendar.getInstance()
+    var cal2 = Calendar.getInstance()
     var prixReservation: Double = 0.0
     var reservatinMap = HashMap<String, String>()
     var paiementMap = HashMap<String, String>()
     val dateFormat = SimpleDateFormat("yyyy.MM.dd")
     var listeReservation = mutableListOf<Reservation>()
+    var hourEntree: Int = 0
+    var minuteSortie: Int = 0
+    var minuteEntree: Int = 0
+    var hourSortie: Int = 0
     lateinit var reservation: Reservation
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,37 +73,63 @@ class AjouterReservationFragment : Fragment() {
             val year: Int = datePicker.year
             val month: Int = datePicker.month
             val day: Int = datePicker.dayOfMonth
-            cal.set(Calendar.YEAR, year)
-            cal.set(Calendar.MONTH, month)
-            cal.set(Calendar.DAY_OF_MONTH, day)
-            val dateInMiliSecondes = cal.timeInMillis
-            Log.d("Date", dateInMiliSecondes.toString())
-            val timePickerEntree: TimePicker = Binding.heureEntreeFormulaire
-            cal.set(Calendar.HOUR, timePickerEntree.hour)
-            cal.set(Calendar.MINUTE, timePickerEntree.minute)
-            val heureEntreeInMiliSecondes = cal.timeInMillis
-            val timePickerSortie: TimePicker = Binding.heureSortieFormulaire
-            cal.set(Calendar.HOUR, timePickerSortie.hour)
-            cal.set(Calendar.MINUTE, timePickerSortie.minute)
-            val heureSortieInMiliSecondes = cal.timeInMillis
-            val pref = requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)
-            reservation = Reservation(id_reservation="",
-                date_reservation = Date(dateInMiliSecondes),
-                heure_entree = heureEntreeInMiliSecondes.toDouble(),
-                heure_sortie = heureSortieInMiliSecondes.toDouble(),
-                etat = true,
-                numero_place = null,
-                id_parking = parkingReservation.id_parking,
-                id_utilisateur = pref.getString("id_utilisateur", "")!!.toInt(),
-                id_paiement = "",
-                synchronise = true
-            )
-            reservatinMap["date_reservation"] =
-                dateFormat.format(Date(dateInMiliSecondes)).toString()
-            reservatinMap["heure_entree"] = heureEntreeInMiliSecondes.toString()
-            reservatinMap["heure_sortie"] = heureSortieInMiliSecondes.toString()
-            reservatinMap["id_parking"] = parkingReservation.id_parking.toString()
-            reservationViewModel.getNombrePlacesOccupees(reservatinMap)
+            cal1.set(Calendar.YEAR, year)
+            cal1.set(Calendar.MONTH, month)
+            cal1.set(Calendar.DAY_OF_MONTH, day)
+            cal1.set(Calendar.MINUTE, Date().minutes + 1)
+            val dateInMiliSecondes = cal1.timeInMillis
+            if (Date().time <= Date(dateInMiliSecondes).time) {
+                val timePickerEntree: TimePicker = Binding.heureEntreeFormulaire
+                cal1.set(Calendar.HOUR, timePickerEntree.hour)
+                cal1.set(Calendar.MINUTE, timePickerEntree.minute)
+                val heureEntreeInMiliSecondes = cal1.timeInMillis
+                cal2.set(Calendar.YEAR, year)
+                cal2.set(Calendar.MONTH, month)
+                cal2.set(Calendar.DAY_OF_MONTH, day)
+                val timePickerSortie: TimePicker = Binding.heureSortieFormulaire
+                cal2.set(Calendar.HOUR, timePickerSortie.hour)
+                cal2.set(Calendar.MINUTE, timePickerSortie.minute)
+                val heureSortieInMiliSecondes = cal2.timeInMillis
+                hourEntree = timePickerEntree.hour
+                hourSortie = timePickerSortie.hour
+                minuteEntree = timePickerEntree.minute
+                minuteSortie = timePickerSortie.hour
+                hourEntree = timePickerEntree.hour
+                Log.d("Heure entree", (hourEntree).toString())
+                hourSortie = timePickerSortie.hour
+                Log.d("Heure sortie", (hourSortie).toString())
+                minuteEntree = timePickerEntree.minute
+                Log.d("Minute entree", (minuteEntree).toString())
+                minuteSortie = timePickerSortie.minute
+                Log.d("Minute sortie", (minuteSortie).toString())
+                if (heureSortieInMiliSecondes > heureEntreeInMiliSecondes) {
+                    val pref =
+                        requireActivity().getSharedPreferences("db_privee", Context.MODE_PRIVATE)
+                    reservation = Reservation(
+                        id_reservation = "",
+                        date_reservation = Date(dateInMiliSecondes),
+                        heure_entree = heureEntreeInMiliSecondes.toDouble(),
+                        heure_sortie = heureSortieInMiliSecondes.toDouble(),
+                        etat = true,
+                        numero_place = null,
+                        id_parking = parkingReservation.id_parking,
+                        id_utilisateur = pref.getString("id_utilisateur", "")!!.toInt(),
+                        id_paiement = "",
+                        synchronise = true
+                    )
+                    reservatinMap["date_reservation"] =
+                        dateFormat.format(Date(dateInMiliSecondes)).toString()
+                    reservatinMap["heure_entree"] = heureEntreeInMiliSecondes.toString()
+                    reservatinMap["heure_sortie"] = heureSortieInMiliSecondes.toString()
+                    reservatinMap["id_parking"] = parkingReservation.id_parking.toString()
+                    reservationViewModel.getNombrePlacesOccupees(reservatinMap)
+                } else {
+                    Toast.makeText(requireContext(), "Heure de sortie ne doit pas depasser heure entrée", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(requireContext(), "Date invalide", Toast.LENGTH_SHORT).show()
+            }
+
         }
         reservationViewModel.loading.observe(viewLifecycleOwner, Observer { loading ->
             if (loading == true) {
@@ -111,11 +143,22 @@ class AjouterReservationFragment : Fragment() {
                 var nb = nbOccupees.size
                 nb = parkingReservation.capacite - nb
                 if (nb > 0) {
-                    prixReservation =
-                        (reservatinMap["heure_sortie"]!!.toLong() - reservatinMap["heure_entree"]!!.toLong()) * (parkingReservation.tarif / 60 / 60 / 1000)
+                    prixReservation = 0.0
+                    var dureeInMilisSecondes: Long =
+                        reservatinMap["heure_sortie"]!!.toLong() - reservatinMap["heure_entree"]!!.toLong()
+                    var dureeInHours: Double = (dureeInMilisSecondes.toDouble() / 3600 / 1000)
+                    Log.d("Duree in hours", dureeInHours.toString())
+                    prixReservation = dureeInHours * parkingReservation.tarif
                     val builder = AlertDialog.Builder(requireActivity())
                     builder.setTitle("Paiement de la reservation")
-                    builder.setMessage("Le montant du paiement: $prixReservation DA")
+                    builder.setMessage(
+                        "Le montant du paiement:".plus(
+                            String.format(
+                                "%.2f",
+                                (prixReservation)
+                            ).plus("DA")
+                        )
+                    )
                     builder.setIcon(android.R.drawable.ic_dialog_info)
                     builder.setNegativeButton("Payer") { dialogInterface, which ->
                         val pref = requireActivity().getSharedPreferences(
@@ -150,25 +193,24 @@ class AjouterReservationFragment : Fragment() {
         reservationViewModel.paye.observe(viewLifecycleOwner, Observer { paye ->
             if (paye != null) {
                 if (paye == true) {
-                    var placesOccupees=reservationViewModel.nbPlaces.value
+                    var placesOccupees = reservationViewModel.nbPlaces.value
                     if (placesOccupees != null) {
-                        Log.d("La taille de la liste",placesOccupees.size.toString())
-                        if(placesOccupees.isEmpty()){
-                            reservation.numero_place=1
-                        }else{
-                            var places= mutableListOf<Int>()
-                            for(item in placesOccupees){
+                        if (placesOccupees.isEmpty()) {
+                            reservation.numero_place = 1
+                        } else {
+                            var places = mutableListOf<Int>()
+                            for (item in placesOccupees) {
                                 places.add(item.numero_place!!)
                             }
-                            for(i in 1..parkingReservation.capacite){
-                                if(!places.contains(i)){
-                                    reservation.numero_place=i
+                            for (i in 1..parkingReservation.capacite) {
+                                if (!places.contains(i)) {
+                                    reservation.numero_place = i
                                     break
                                 }
                             }
                         }
                     }
-                    reservation.id_reservation="Res-".plus(paiementMap["id_paiement"].toString())
+                    reservation.id_reservation = "Res-".plus(paiementMap["id_paiement"].toString())
                     reservation.id_paiement = paiementMap["id_paiement"].toString()
                     listeReservation.add(reservation)
                     reservationViewModel.ajouterReservation(listeReservation)
@@ -192,8 +234,10 @@ class AjouterReservationFragment : Fragment() {
                 if (effectue == true) {
                     val builder = AlertDialog.Builder(requireActivity())
                     builder.setTitle("Statut de reservation")
-                    builder.setMessage("Votre reservation a été effectuée avec succés\nNumero de reservation : ${reservation.id_reservation}\n" +
-                            "Numero de place : ${reservation.numero_place}\n")
+                    builder.setMessage(
+                        "Votre reservation a été effectuée avec succés\nNumero de reservation : ${reservation.id_reservation}\n" +
+                                "Numero de place : ${reservation.numero_place}\n"
+                    )
                     builder.setIcon(android.R.drawable.ic_dialog_info)
                     builder.setNeutralButton("Ok") { dialogInterface, which ->
                     }

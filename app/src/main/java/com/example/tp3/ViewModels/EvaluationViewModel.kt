@@ -15,6 +15,7 @@ class EvaluationViewModel : ViewModel(){
     var evaluations = MutableLiveData<List<Evaluation>>()
     var loading = MutableLiveData<Boolean>()
     val errorMessage = MutableLiveData<String>()
+    val submit=MutableLiveData<Boolean>()
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         CoroutineScope(Dispatchers.Main).launch {
             onError(throwable.localizedMessage.toString())

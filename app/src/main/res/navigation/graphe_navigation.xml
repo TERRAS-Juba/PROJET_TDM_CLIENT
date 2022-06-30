@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_detailsParkingFragment_to_ajouterReservationFragment"
             app:destination="@id/ajouterReservationFragment" />
+        <action
+            android:id="@+id/action_detailsParkingFragment_to_commentaireFragment"
+            app:destination="@id/commentaireFragment" />
     </fragment>
     <fragment
         android:id="@+id/mesReservationFragment"
@@ -101,4 +104,19 @@
         android:name="com.example.tp3.AjouterReservationFragment"
         android:label="fragment_ajouter_reservation"
         tools:layout="@layout/fragment_ajouter_reservation" />
+    <fragment
+        android:id="@+id/commentaireFragment"
+        android:name="com.example.tp3.CommentaireFragment"
+        android:label="fragment_commentaire"
+        tools:layout="@layout/fragment_commentaire" >
+        <action
+            android:id="@+id/action_commentaireFragment_to_detailsParkingFragment"
+            app:destination="@id/detailsParkingFragment" />
+        <action
+            android:id="@+id/action_commentaireFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_commentaireFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

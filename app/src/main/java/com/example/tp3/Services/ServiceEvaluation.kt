@@ -40,7 +40,7 @@ class ServiceEvaluation (val context: Context, val params: WorkerParameters) :
             return if(succes){
                 Result.success()
             }else{
-                Result.failure()
+                Result.retry()
             }
         }
 }
